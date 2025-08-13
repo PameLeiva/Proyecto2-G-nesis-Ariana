@@ -3,7 +3,8 @@ package datos;
 
 /**
  *
- * @author pamel
+ *  @author Génesis Leiva
+ * @author Ariana Araya
  */
 public class AlmacenamientoBeneficios {
     
