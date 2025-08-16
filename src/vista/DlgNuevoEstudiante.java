@@ -1,42 +1,24 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
 package vista;
-
-//import datos.AlmacenamientoPuestos;
-//import javax.swing.JOptionPane;
-//import logica.Puestos;
 
 /**
  *
- * @author jonat
+ * @author Mauricio
  */
-public class DlgNuevoPuesto1 extends javax.swing.JDialog {
-//
-//    AlmacenamientoPuestos listaPuestos;
-//    Puestos puesto;
-//    int pos;
+public class DlgNuevoEstudiante extends javax.swing.JDialog {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgNuevoEstudiante.class.getName());
 
     /**
-     * Creates new form DlgNuevoAuto
+     * Creates new form DlgNuevoEstudiante
      */
-    public DlgNuevoPuesto1(java.awt.Frame parent, boolean modal) {
+    public DlgNuevoEstudiante(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-//
-//    public DlgNuevoPuesto1(java.awt.Frame parent, boolean modal,
-//            AlmacenamientoPuestos listaPuestos) {
-//        super(parent, modal);
-//        initComponents();
-//        this.listaPuestos = listaPuestos;
-//    }
-//
-//    public DlgNuevoPuesto1(java.awt.Frame parent, boolean modal,
-//            AlmacenamientoPuestos listaPuestos, Puestos puesto, int pos) {
-//        super(parent, modal);
-//        initComponents();
-//        this.listaPuestos = listaPuestos;
-//        this.puesto = puesto;
-//        this.pos = pos;
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +29,9 @@ public class DlgNuevoPuesto1 extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblPlaca = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -54,18 +39,44 @@ public class DlgNuevoPuesto1 extends javax.swing.JDialog {
         txtPuesto = new javax.swing.JTextField();
         lblAnio = new javax.swing.JLabel();
         txtSalario = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(btnGuardar)
+                .addGap(8, 8, 8)
+                .addComponent(btnCancelar)
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
 
         lblPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPlaca.setText("I:d");
@@ -118,42 +129,6 @@ public class DlgNuevoPuesto1 extends javax.swing.JDialog {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar.png"))); // NOI18N
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancelar.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(btnGuardar)
-                .addGap(8, 8, 8)
-                .addComponent(btnCancelar)
-                .addContainerGap(58, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,7 +141,7 @@ public class DlgNuevoPuesto1 extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,67 +150,55 @@ public class DlgNuevoPuesto1 extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-//        Puestos puesto = new Puestos();
-//        //Validación de campos vacíos
-//        if (txtId.getText().isBlank()
-//                || txtPuesto.getText().isBlank()
-//                || txtSalario.getText().isBlank()) {
-//
-//            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
-//        } else {
-//            //Agregar try/catch
-//            try {
-//                puesto.setIdPuesto(Integer.parseInt(txtId.getText()));
-//                puesto.setNombrePuesto(txtPuesto.getText());
-//                puesto.setSalario(Double.parseDouble(txtSalario.getText()));
-//            } catch (NumberFormatException e) {
-//                JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
-//            }
-//
-//            switch (this.getTitle()) {
-//                case "Agregar Puesto" -> {
-//                    if (listaPuestos.buscarId(puesto.getIdPuesto()) == null) {
-//                        listaPuestos.insertarPuesto(puesto);
-//                        JOptionPane.showMessageDialog(this, "Puesto agregado con éxito");
-//                        txtId.setText("");
-//                        txtPuesto.setText("");
-//                        txtSalario.setText("");
-//                        txtId.requestFocus();
-//                    } else {
-//                        JOptionPane.showMessageDialog(this, "El id de puesto ya existe");
-//                        txtId.setSelectionStart(0);
-//                        txtId.setSelectionEnd(txtId.getText().length());
-//                        txtId.requestFocus();
-//                    }
-//                }
-//
-//                case "Editar Puesto" -> {
-//                    listaPuestos.editarPuesto(pos, puesto);
-//                    JOptionPane.showMessageDialog(this, "Puesto editado con éxito");
-//                    this.dispose();
-//                }
-//            }
-//        }
+        //        Puestos puesto = new Puestos();
+        //        //Validación de campos vacíos
+        //        if (txtId.getText().isBlank()
+            //                || txtPuesto.getText().isBlank()
+            //                || txtSalario.getText().isBlank()) {
+            //
+            //            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
+            //        } else {
+            //            //Agregar try/catch
+            //            try {
+                //                puesto.setIdPuesto(Integer.parseInt(txtId.getText()));
+                //                puesto.setNombrePuesto(txtPuesto.getText());
+                //                puesto.setSalario(Double.parseDouble(txtSalario.getText()));
+                //            } catch (NumberFormatException e) {
+                //                JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
+                //            }
+            //
+            //            switch (this.getTitle()) {
+                //                case "Agregar Puesto" -> {
+                    //                    if (listaPuestos.buscarId(puesto.getIdPuesto()) == null) {
+                        //                        listaPuestos.insertarPuesto(puesto);
+                        //                        JOptionPane.showMessageDialog(this, "Puesto agregado con éxito");
+                        //                        txtId.setText("");
+                        //                        txtPuesto.setText("");
+                        //                        txtSalario.setText("");
+                        //                        txtId.requestFocus();
+                        //                    } else {
+                        //                        JOptionPane.showMessageDialog(this, "El id de puesto ya existe");
+                        //                        txtId.setSelectionStart(0);
+                        //                        txtId.setSelectionEnd(txtId.getText().length());
+                        //                        txtId.requestFocus();
+                        //                    }
+                    //                }
+                //
+                //                case "Editar Puesto" -> {
+                    //                    listaPuestos.editarPuesto(pos, puesto);
+                    //                    JOptionPane.showMessageDialog(this, "Puesto editado con éxito");
+                    //                    this.dispose();
+                    //                }
+                //            }
+            //        }
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//
-//        if (this.getTitle().equals("Editar Puesto")) {
-//            txtId.setText(String.valueOf(puesto.getIdPuesto()));
-//            txtId.setEnabled(false);
-//            txtPuesto.setText(puesto.getNombrePuesto());
-//            txtSalario.setText(String.valueOf(puesto.getSalario()));
-//
-//        }
-
-    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -253,24 +216,16 @@ public class DlgNuevoPuesto1 extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgNuevoPuesto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgNuevoPuesto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgNuevoPuesto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgNuevoPuesto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                DlgNuevoPuesto1 dialog = new DlgNuevoPuesto1(new javax.swing.JFrame(), true);
+                DlgNuevoEstudiante dialog = new DlgNuevoEstudiante(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
