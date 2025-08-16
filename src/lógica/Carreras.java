@@ -9,18 +9,18 @@ package lógica;
 public class Carreras {
     private int idCarrera;
     private String nomCarrera;
-    private String Carrera;
+    private String grado;
 
     public Carreras() {
         this.idCarrera = 0;
         this.nomCarrera = "";
-        this.Carrera = "";
+        this.grado = "";
     }
 
-    public Carreras(int idCarrera, String nomCarrera, String Carrera) {
+    public Carreras(int idCarrera, String nomCarrera, String grado) {
         this.idCarrera = idCarrera;
         this.nomCarrera = nomCarrera;
-        this.Carrera = Carrera;
+        this.grado = grado;
     }
 
     public int getIdCarrera() {
@@ -39,12 +39,12 @@ public class Carreras {
         this.nomCarrera = nomCarrera;
     }
 
-    public String getCarrera() {
-        return Carrera;
+    public String getGrado() {
+        return grado;
     }
 
-    public void setCarrera(String Carrera) {
-        this.Carrera = Carrera;
+    public void setGrado(String grado) {
+        this.grado = grado;
     }
     
     

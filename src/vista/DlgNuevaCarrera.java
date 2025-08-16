@@ -1,3 +1,6 @@
+
+import datos.AlmacenamientoCarreras;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -8,15 +11,17 @@
  * @author Mauricio
  */
 public class DlgNuevaCarrera extends javax.swing.JDialog {
-    
+        private AlmacenamientoCarreras almacenamientoCarreras;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgNuevaCarrera.class.getName());
 
     /**
      * Creates new form DlgNuevaCarrera
      */
-    public DlgNuevaCarrera(java.awt.Frame parent, boolean modal) {
+    public DlgNuevaCarrera(java.awt.Frame parent, boolean modal,AlmacenamientoCarreras almacenamientoCarreras) {
         super(parent, modal);
         initComponents();
+        this.almacenamientoCarreras = almacenamientoCarreras;
     }
 
     /**
