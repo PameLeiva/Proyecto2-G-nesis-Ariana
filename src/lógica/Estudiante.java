@@ -12,17 +12,17 @@ public class Estudiante extends Persona{
     private int carnet;
     private LocalDate fechaIngreso;
     private LocalDate fechaEgreso;
-    private String carrera;
+    private int carrera;
 
     public Estudiante() {
         super();
         this.carnet = 0;
         this.fechaIngreso = null;  
         this.fechaEgreso = null;
-        this.carrera = "";
+        this.carrera = 0;
     }
     
-    public Estudiante(int carnet, LocalDate fechaIngreso, LocalDate fechaEgreso, String carrera, int ced, String nom, LocalDate fechNac, String direccion, int telefono, String email) {
+    public Estudiante(int carnet, LocalDate fechaIngreso, LocalDate fechaEgreso, int carrera, int ced, String nom, LocalDate fechNac, String direccion, String telefono, String email) {
         super(ced, nom, fechNac, direccion, telefono, email);
         this.carnet = carnet;
         this.fechaIngreso = fechaIngreso;
@@ -54,11 +54,11 @@ public class Estudiante extends Persona{
         this.fechaEgreso = fechaEgreso;
     }
 
-    public String getCarrera() {
+    public int getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(String carrera) {
+    public void setCarrera(int carrera) {
         this.carrera = carrera;
     }
     

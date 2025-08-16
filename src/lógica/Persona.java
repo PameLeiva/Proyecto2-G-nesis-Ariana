@@ -8,12 +8,12 @@ import java.time.LocalDate;
  * @author Génesis Leiva
  * @author Ariana Araya
  */
-public class Persona {
+public abstract class Persona {
     private int ced;
     private String nom;
     private LocalDate fechNac;
     private String direccion;
-    private int telefono;
+    private String telefono;
     private String email;
 
     public Persona() {
@@ -21,11 +21,11 @@ public class Persona {
         this.nom = "";
         this.fechNac = null;
         this.direccion = "";
-        this.telefono = 0;
+        this.telefono = "";
         this.email = "";
     }
     
-      public Persona(int ced, String nom, LocalDate fechNac, String direccion, int telefono, String email) {
+      public Persona(int ced, String nom, LocalDate fechNac, String direccion, String telefono, String email) {
         this.ced = ced;
         this.nom = nom;
         this.fechNac = fechNac;
@@ -66,11 +66,11 @@ public class Persona {
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
