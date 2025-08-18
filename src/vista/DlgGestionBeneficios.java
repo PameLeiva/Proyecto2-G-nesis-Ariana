@@ -4,13 +4,16 @@
  */
 package vista;
 
+import datos.AlmacenamientoBeneficios;
+
 /**
  *
  * @author Mauricio
  */
 public class DlgGestionBeneficios extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgGestionBeneficios.class.getName());
+    protected AlmacenamientoBeneficios listaBeneficios;
 
     /**
      * Creates new form DlgGestionBeneficios
@@ -18,6 +21,12 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     public DlgGestionBeneficios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public DlgGestionBeneficios(java.awt.Frame parent, boolean modal, AlmacenamientoBeneficios lisBeneficios) {
+        super(parent, modal);
+        initComponents();
+        this.listaBeneficios = lisBeneficios;
     }
 
     /**
@@ -171,17 +180,17 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
         //        Puestos puestos;
         //        tblModel = new DefaultTableModel(null, titulo);
         //        for (int i = 0; i < listaPuestos.getListaPuestos().size(); i++) {
-            //            puestos = listaPuestos.getListaPuestos().get(i);
-            //
-            //            if (String.valueOf(puestos.getIdPuesto()).contains(txtBuscar.getText().toLowerCase())
-                //                    || puestos.getNombrePuesto().toLowerCase().contains(txtBuscar.getText().toLowerCase())
-                //                    || String.valueOf(puestos.getSalario()).contains(txtBuscar.getText().toLowerCase())) {
-                //                Object row[] = {listaPuestos.getListaPuestos().get(i).getIdPuesto(),
-                    //                    listaPuestos.getListaPuestos().get(i).getNombrePuesto(),
-                    //                    listaPuestos.getListaPuestos().get(i).getSalario()};
-                //                tblModel.addRow(row);
-                //            }
-            //        }
+        //            puestos = listaPuestos.getListaPuestos().get(i);
+        //
+        //            if (String.valueOf(puestos.getIdPuesto()).contains(txtBuscar.getText().toLowerCase())
+        //                    || puestos.getNombrePuesto().toLowerCase().contains(txtBuscar.getText().toLowerCase())
+        //                    || String.valueOf(puestos.getSalario()).contains(txtBuscar.getText().toLowerCase())) {
+        //                Object row[] = {listaPuestos.getListaPuestos().get(i).getIdPuesto(),
+        //                    listaPuestos.getListaPuestos().get(i).getNombrePuesto(),
+        //                    listaPuestos.getListaPuestos().get(i).getSalario()};
+        //                tblModel.addRow(row);
+        //            }
+        //        }
         //
         //        tblPuestos.setModel(tblModel);
         //        txtCant.setText(String.valueOf(tblPuestos.getRowCount()));
@@ -189,7 +198,7 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         //        DlgNuevoPuesto win = new DlgNuevoPuesto(null, true,
-            //                listaPuestos);
+        //                listaPuestos);
         //        win.setTitle("Agregar Puesto");
         //        win.setVisible(true);
         //        this.listaPuestos = win.listaPuestos;
@@ -197,38 +206,38 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //        if (tblPuestos.getSelectedRowCount() == 1) {
-            //            int pos = tblPuestos.getSelectedRow();
-            //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
-            //
-            //            Puestos puesto = listaPuestos.buscarId(id);
-            //
-            //            DlgNuevoPuesto winEditar = new DlgNuevoPuesto(null, true, listaPuestos, puesto, pos);
-            //
-            //            winEditar.setTitle("Editar Puesto");
-            //            winEditar.setLocationRelativeTo(null);
-            //            winEditar.setVisible(true);
-            //
-            //            this.listaPuestos = winEditar.listaPuestos;
-            //        } else {
-            //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
-            //        }
+        //            int pos = tblPuestos.getSelectedRow();
+        //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
+        //
+        //            Puestos puesto = listaPuestos.buscarId(id);
+        //
+        //            DlgNuevoPuesto winEditar = new DlgNuevoPuesto(null, true, listaPuestos, puesto, pos);
+        //
+        //            winEditar.setTitle("Editar Puesto");
+        //            winEditar.setLocationRelativeTo(null);
+        //            winEditar.setVisible(true);
+        //
+        //            this.listaPuestos = winEditar.listaPuestos;
+        //        } else {
+        //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
+        //        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         //        if (tblPuestos.getSelectedRowCount() == 1) {
-            //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
-            //
-            //            int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el auto");
-            //
-            //            Puestos puesto = listaPuestos.buscarId(id);
-            //            if (resp == 0) {  //Sí quiere eliminar el puesto
-                //                if (listaPuestos.eliminarPuesto(puesto)) {
-                    //                    JOptionPane.showMessageDialog(this, "Auto eliminado");
-                    //                }
-                //            }
-            //        } else {
-            //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
-            //        }
+        //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
+        //
+        //            int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el auto");
+        //
+        //            Puestos puesto = listaPuestos.buscarId(id);
+        //            if (resp == 0) {  //Sí quiere eliminar el puesto
+        //                if (listaPuestos.eliminarPuesto(puesto)) {
+        //                    JOptionPane.showMessageDialog(this, "Auto eliminado");
+        //                }
+        //            }
+        //        } else {
+        //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
+        //        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

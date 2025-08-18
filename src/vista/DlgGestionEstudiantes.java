@@ -4,13 +4,28 @@
  */
 package vista;
 
+import datos.AlmacenamientoBeneficios;
+import datos.AlmacenamientoBeneficiosEstudiantes;
+import datos.AlmacenamientoCarreras;
+import datos.AlmacenamientoEstudiante;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lógica.Carreras;
+import lógica.Estudiante;
+import vista.DlgNuevoBeneficio;
+
 /**
  *
  * @author Mauricio
  */
 public class DlgGestionEstudiantes extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgGestionEstudiantes.class.getName());
+    protected AlmacenamientoEstudiante listaEstudiantes;
+    protected AlmacenamientoCarreras listaCarreras;
+    protected AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
+    protected AlmacenamientoBeneficios listaBeneficios;
+    private DefaultTableModel tblModel;
 
     /**
      * Creates new form DlgGestionEstudiantes
@@ -18,6 +33,17 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
     public DlgGestionEstudiantes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public DlgGestionEstudiantes(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiantes,
+            AlmacenamientoCarreras listaCarreras, AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante, AlmacenamientoBeneficios listaBeneficios) {
+        super(parent, modal);
+        initComponents();
+        this.listaEstudiantes = listaEstudiantes;
+        this.listaCarreras = listaCarreras;
+        this.listaBeneficioEstudiante = listaBeneficioEstudiante;
+        this.listaBeneficios = listaBeneficios;
+
     }
 
     /**
@@ -37,10 +63,16 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
         btnInsertar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPuestos = new javax.swing.JTable();
+        tblEstudiantes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         lblCant.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblCant.setText("Cantidad de registros:");
@@ -87,6 +119,13 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setText("Beneficios");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -96,6 +135,8 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
                 .addComponent(lblBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -113,11 +154,12 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        tblPuestos.setModel(new javax.swing.table.DefaultTableModel(
+        tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -125,7 +167,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(tblPuestos);
+        jScrollPane1.setViewportView(tblEstudiantes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,65 +213,115 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
         //        Puestos puestos;
         //        tblModel = new DefaultTableModel(null, titulo);
         //        for (int i = 0; i < listaPuestos.getListaPuestos().size(); i++) {
-            //            puestos = listaPuestos.getListaPuestos().get(i);
-            //
-            //            if (String.valueOf(puestos.getIdPuesto()).contains(txtBuscar.getText().toLowerCase())
-                //                    || puestos.getNombrePuesto().toLowerCase().contains(txtBuscar.getText().toLowerCase())
-                //                    || String.valueOf(puestos.getSalario()).contains(txtBuscar.getText().toLowerCase())) {
-                //                Object row[] = {listaPuestos.getListaPuestos().get(i).getIdPuesto(),
-                    //                    listaPuestos.getListaPuestos().get(i).getNombrePuesto(),
-                    //                    listaPuestos.getListaPuestos().get(i).getSalario()};
-                //                tblModel.addRow(row);
-                //            }
-            //        }
+        //            puestos = listaPuestos.getListaPuestos().get(i);
         //
-        //        tblPuestos.setModel(tblModel);
-        //        txtCant.setText(String.valueOf(tblPuestos.getRowCount()));
+        //            if (String.valueOf(puestos.getIdPuesto()).contains(txtBuscar.getText().toLowerCase())
+        //                    || puestos.getNombrePuesto().toLowerCase().contains(txtBuscar.getText().toLowerCase())
+        //                    || String.valueOf(puestos.getSalario()).contains(txtBuscar.getText().toLowerCase())) {
+        //                Object row[] = {listaPuestos.getListaPuestos().get(i).getIdPuesto(),
+        //                    listaPuestos.getListaPuestos().get(i).getNombrePuesto(),
+        //                    listaPuestos.getListaPuestos().get(i).getSalario()};
+        //                tblModel.addRow(row);
+        //            }
+        //        }
+        //
+        //        tblEstudiantes.setModel(tblModel);
+        //        txtCant.setText(String.valueOf(tblEstudiantes.getRowCount()));
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        //        DlgNuevoPuesto win = new DlgNuevoPuesto(null, true,
-            //                listaPuestos);
-        //        win.setTitle("Agregar Puesto");
-        //        win.setVisible(true);
-        //        this.listaPuestos = win.listaPuestos;
+        DlgNuevoEstudiante win = new DlgNuevoEstudiante(null, true,
+                listaEstudiantes, listaCarreras);
+        win.setTitle("Agregar Estudiante");
+        win.setVisible(true);
+        this.listaEstudiantes = win.listaEstudiantes;
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        //        if (tblPuestos.getSelectedRowCount() == 1) {
-            //            int pos = tblPuestos.getSelectedRow();
-            //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
-            //
-            //            Puestos puesto = listaPuestos.buscarId(id);
-            //
-            //            DlgNuevoPuesto winEditar = new DlgNuevoPuesto(null, true, listaPuestos, puesto, pos);
-            //
-            //            winEditar.setTitle("Editar Puesto");
-            //            winEditar.setLocationRelativeTo(null);
-            //            winEditar.setVisible(true);
-            //
-            //            this.listaPuestos = winEditar.listaPuestos;
-            //        } else {
-            //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
-            //        }
+                if (tblEstudiantes.getSelectedRowCount() == 1) {
+                    int pos = tblEstudiantes.getSelectedRow();
+                    int carnet = Integer.parseInt(tblEstudiantes.getValueAt(tblEstudiantes.getSelectedRow(), 2).toString());
+        
+                    Estudiante estudiante = listaEstudiantes.buscarCarnet(carnet);
+        
+                    if(estudiante != null){
+                    DlgNuevoEstudiante winEditar = new DlgNuevoEstudiante(null, true, listaEstudiantes, listaCarreras,estudiante, pos);
+        
+                    winEditar.setTitle("Editar Estudiante");
+                    winEditar.setLocationRelativeTo(null);
+                    winEditar.setVisible(true);
+        
+                    this.listaEstudiantes = winEditar.listaEstudiantes;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Estudiante no encontrado");
+                    } }else {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Estudainte");
+                }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        //        if (tblPuestos.getSelectedRowCount() == 1) {
-            //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
-            //
-            //            int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el auto");
-            //
-            //            Puestos puesto = listaPuestos.buscarId(id);
-            //            if (resp == 0) {  //Sí quiere eliminar el puesto
-                //                if (listaPuestos.eliminarPuesto(puesto)) {
-                    //                    JOptionPane.showMessageDialog(this, "Auto eliminado");
-                    //                }
-                //            }
-            //        } else {
-            //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
-            //        }
+                if (tblEstudiantes.getSelectedRowCount() == 1) {
+                    int carnet = Integer.parseInt(tblEstudiantes.getValueAt(tblEstudiantes.getSelectedRow(), 2).toString());
+        
+                    int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el estudiante");
+        
+                    Estudiante estudiante = listaEstudiantes.buscarCarnet(carnet);
+                    if (resp == 0) {  //Sí quiere eliminar el puesto
+                        if (listaEstudiantes.eliminarEstudiante(estudiante)) {
+                            JOptionPane.showMessageDialog(this, "Estudiante eliminado");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Estudiante");
+                }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (tblEstudiantes.getSelectedRowCount() == 1) {
+            int fila = tblEstudiantes.getSelectedRow();
+            int cedula = Integer.parseInt(tblEstudiantes.getValueAt(fila, 0).toString());
+
+            Estudiante estudiante = listaEstudiantes.buscarCedula(cedula);
+            if (estudiante != null) {
+                DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(null, true, listaEstudiantes, listaBeneficios, listaBeneficioEstudiante);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un estudiante");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        muestraTabla();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void muestraTabla() {
+        String titulo[] = {"Cédula", "Nombre", "Carnet", "Carrera", "Ingreso", "Egreso"};
+
+        tblModel = new DefaultTableModel(null, titulo);
+        for (int i = 0; i < listaEstudiantes.getListaEstudiantes().size(); i++) {
+            Carreras c = listaCarreras.buscarId(listaEstudiantes.getListaEstudiantes().get(i).getCarrera());
+
+            String nombreCarrera;
+            if (c != null) {
+                nombreCarrera = c.getNomCarrera();
+            } else {
+                nombreCarrera = "Carrera no encontrada"; // ✅ Evita el error si el ID no existe
+            }
+
+            Object row[] = {listaEstudiantes.getListaEstudiantes().get(i).getCed(),
+                listaEstudiantes.getListaEstudiantes().get(i).getNom(), listaEstudiantes.getListaEstudiantes().get(i).getCarnet(),
+                nombreCarrera,
+                listaEstudiantes.getListaEstudiantes().get(i).getFechaIngreso(),
+                listaEstudiantes.getListaEstudiantes().get(i).getFechaEgreso()
+            };
+            tblModel.addRow(row);
+        }
+
+        tblEstudiantes.setModel(tblModel);
+        txtCant.setText(String.valueOf(tblEstudiantes.getRowCount()));
+    }
 
     /**
      * @param args the command line arguments
@@ -272,11 +364,12 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInsertar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCant;
-    private javax.swing.JTable tblPuestos;
+    private javax.swing.JTable tblEstudiantes;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCant;
     // End of variables declaration//GEN-END:variables

@@ -4,13 +4,20 @@
  */
 package vista;
 
+import datos.AlmacenamientoBeneficios;
+import datos.AlmacenamientoBeneficiosEstudiantes;
+import datos.AlmacenamientoEstudiante;
+
 /**
  *
  * @author Mauricio
  */
 public class DlgAsignarBeneficios extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgAsignarBeneficios.class.getName());
+    protected AlmacenamientoBeneficios listaBeneficios;
+    protected AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
+    protected AlmacenamientoEstudiante listaEstudiantes;
 
     /**
      * Creates new form DlgAsignarBeneficios
@@ -18,6 +25,16 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
     public DlgAsignarBeneficios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public DlgAsignarBeneficios(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiantes,
+            AlmacenamientoBeneficios listaBeneficios, AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante) {
+        super(parent, modal);
+        initComponents();
+        this.listaEstudiantes = listaEstudiantes;
+        this.listaBeneficios = listaBeneficios;
+        this.listaBeneficioEstudiante = listaBeneficioEstudiante;
+
     }
 
     /**

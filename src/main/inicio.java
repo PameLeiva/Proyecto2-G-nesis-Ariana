@@ -34,6 +34,7 @@ public class inicio extends javax.swing.JFrame {
      */
     public inicio() {
         initComponents();
+        initializeStorageObjects();
     }
 
     /**
@@ -55,9 +56,9 @@ public class inicio extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEstudiantes = new javax.swing.JButton();
+        btnCarreras = new javax.swing.JButton();
+        btnBeneficios = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -76,24 +77,38 @@ public class inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(1920, 1080));
         jPanel1.setPreferredSize(new java.awt.Dimension(1920, 1080));
         jPanel1.setRequestFocusEnabled(false);
 
         jPanel2.setBackground(new java.awt.Color(221, 221, 221));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(null));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Estudiantes");
+        btnEstudiantes.setText("Estudiantes");
+        btnEstudiantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstudiantesActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Carreras");
-        jButton2.setMaximumSize(new java.awt.Dimension(90, 23));
-        jButton2.setMinimumSize(new java.awt.Dimension(90, 23));
+        btnCarreras.setText("Carreras");
+        btnCarreras.setMaximumSize(new java.awt.Dimension(90, 23));
+        btnCarreras.setMinimumSize(new java.awt.Dimension(90, 23));
+        btnCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarrerasActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Beneficios");
-        jButton3.setMaximumSize(new java.awt.Dimension(90, 23));
-        jButton3.setMinimumSize(new java.awt.Dimension(90, 23));
+        btnBeneficios.setText("Beneficios");
+        btnBeneficios.setMaximumSize(new java.awt.Dimension(90, 23));
+        btnBeneficios.setMinimumSize(new java.awt.Dimension(90, 23));
+        btnBeneficios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBeneficiosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -101,11 +116,11 @@ public class inicio extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(231, 231, 231)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
+                .addComponent(btnBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
         jPanel2Layout.setVerticalGroup(
@@ -113,11 +128,11 @@ public class inicio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(btnEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -125,16 +140,16 @@ public class inicio extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(470, 470, 470)
+                .addGap(330, 330, 330)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(565, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(87, 87, 87)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(849, Short.MAX_VALUE))
+                .addContainerGap(846, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Archivo");
@@ -202,7 +217,7 @@ public class inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1908, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1552, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -218,22 +233,30 @@ public class inicio extends javax.swing.JFrame {
         mostrarAcercaDe();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    
-    
-    
-    
-        // Métodos para abrir las ventanas
+    private void btnEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstudiantesActionPerformed
+        abrirGestionEstudiantes();
+    }//GEN-LAST:event_btnEstudiantesActionPerformed
+
+    private void btnCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrerasActionPerformed
+        abrirGestionCarreras();
+    }//GEN-LAST:event_btnCarrerasActionPerformed
+
+    private void btnBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeneficiosActionPerformed
+        abrirGestionBeneficios();
+    }//GEN-LAST:event_btnBeneficiosActionPerformed
+
+    // Métodos para abrir las ventanas
     private void abrirGestionEstudiantes() {
         try {
-            DlgGestionEstudiantes dialog = new DlgGestionEstudiantes(this, true, 
-                almacenamientoEstudiantes, almacenamientoCarreras, almacenamientoBeneficiosEstudiantes);
+            DlgGestionEstudiantes dialog = new DlgGestionEstudiantes(this, true,
+                    almacenamientoEstudiantes, almacenamientoCarreras, almacenamientoBeneficiosEstudiantes, almacenamientoBeneficios);
             dialog.setLocationRelativeTo(this);
             dialog.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al abrir gestión de estudiantes: " + e.getMessage());
         }
     }
-    
+
     private void abrirGestionCarreras() {
         try {
             DlgGestionCarreras dialog = new DlgGestionCarreras(this, true, almacenamientoCarreras);
@@ -243,7 +266,7 @@ public class inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al abrir gestión de carreras: " + e.getMessage());
         }
     }
-    
+
     private void abrirGestionBeneficios() {
         try {
             DlgGestionBeneficios dialog = new DlgGestionBeneficios(this, true, almacenamientoBeneficios);
@@ -253,45 +276,44 @@ public class inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al abrir gestión de beneficios: " + e.getMessage());
         }
     }
-    
+
     private void abrirAsignarBeneficios() {
         try {
-            DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(this, true, 
-                almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes);
+            DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(this, true,
+                    almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes);
             dialog.setLocationRelativeTo(this);
             dialog.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al abrir asignación de beneficios: " + e.getMessage());
         }
     }
-    
+
     private void abrirPagosMensuales() {
         try {
-            DlgPagosMensuales dialog = new DlgPagosMensuales(this, true, 
-                almacenamientoEstudiantes, almacenamientoBeneficios, 
-                almacenamientoBeneficiosEstudiantes, almacenamientoPagosMensuales);
+            DlgPagosMensuales dialog = new DlgPagosMensuales(this, true,
+                    almacenamientoEstudiantes, almacenamientoBeneficios,
+                    almacenamientoBeneficiosEstudiantes, almacenamientoPagosMensuales);
             dialog.setLocationRelativeTo(this);
             dialog.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al abrir pagos mensuales: " + e.getMessage());
         }
     }
-    
+
     private void mostrarAcercaDe() {
-        String mensaje = "Sistema de Control de Beneficios Estudiantiles\n\n" +
-                        "Universidad Técnica Nacional\n" +
-                        "Sede de Guanacaste\n\n" +
-                        "Desarrollado por:\n" +
-                        "• Génesis Leiva\n" +
-                        "• Ariana Araya\n\n" +
-                        "Curso: Programación I\n" +
-                        "Prof.: Ing. Jonathan Moreno Núñez\n\n" +
-                        "Versión 1.0 - 2025";
-        
+        String mensaje = "Sistema de Control de Beneficios Estudiantiles\n\n"
+                + "Universidad Técnica Nacional\n"
+                + "Sede de Guanacaste\n\n"
+                + "Desarrollado por:\n"
+                + "• Génesis Leiva\n"
+                + "• Ariana Araya\n\n"
+                + "Curso: Programación I\n"
+                + "Prof.: Ing. Jonathan Moreno Núñez\n\n"
+                + "Versión 1.0 - 2025";
+
         JOptionPane.showMessageDialog(this, mensaje, "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -318,9 +340,9 @@ public class inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnBeneficios;
+    private javax.swing.JButton btnCarreras;
+    private javax.swing.JButton btnEstudiantes;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

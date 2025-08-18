@@ -4,13 +4,25 @@
  */
 package vista;
 
+import datos.AlmacenamientoBeneficios;
+import datos.AlmacenamientoBeneficiosEstudiantes;
+import datos.AlmacenamientoEstudiante;
+import javax.swing.JOptionPane;
+import lógica.Beneficios;
+import lógica.Estudiante;
+
 /**
  *
  * @author Mauricio
  */
 public class DlgNuevoBeneficio extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgNuevoBeneficio.class.getName());
+    private AlmacenamientoEstudiante listaEstudiantes;
+    private AlmacenamientoBeneficios listaBeneficio;
+    private AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
+    private Estudiante estudiante;
+    int pos;
 
     /**
      * Creates new form DlgNuevoBeneficio
@@ -18,6 +30,19 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
     public DlgNuevoBeneficio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public DlgNuevoBeneficio(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
+            AlmacenamientoBeneficios listaBeneficio,
+            AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante,
+            Estudiante estudiante) {
+        super(parent, modal);
+        initComponents();
+        this.listaEstudiantes = listaEstudiante;
+        this.listaBeneficio = listaBeneficio;
+        this.listaBeneficioEstudiante = listaBeneficioEstudiante;
+        this.estudiante = estudiante;
+
     }
 
     /**
@@ -33,12 +58,14 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        lblPlaca = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
-        lblMarca = new javax.swing.JLabel();
-        txtPuesto = new javax.swing.JTextField();
-        lblAnio = new javax.swing.JLabel();
-        txtSalario = new javax.swing.JTextField();
+        lblId = new javax.swing.JLabel();
+        txtIdBeneficio = new javax.swing.JTextField();
+        lblNom = new javax.swing.JLabel();
+        txtNomBeneficio = new javax.swing.JTextField();
+        lblDescripcion = new javax.swing.JLabel();
+        txtDescripBeneficio = new javax.swing.JTextField();
+        txtMontoBeneficio = new javax.swing.JTextField();
+        lblMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -76,22 +103,27 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblPlaca.setText("I:d");
+        lblId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblId.setText("Id:");
 
-        txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtIdBeneficio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        lblMarca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMarca.setText("Puesto:");
+        lblNom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNom.setText("Nombre:");
 
-        txtPuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNomBeneficio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        lblAnio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblAnio.setText("Salario:");
+        lblDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDescripcion.setText("Descripción:");
 
-        txtSalario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDescripBeneficio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtMontoBeneficio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        lblMonto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMonto.setText("Monto:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,33 +132,39 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblMarca)
-                    .addComponent(lblPlaca)
-                    .addComponent(lblAnio))
+                    .addComponent(lblNom)
+                    .addComponent(lblId)
+                    .addComponent(lblDescripcion)
+                    .addComponent(lblMonto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                        .addComponent(txtSalario))
-                    .addComponent(txtPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                        .addComponent(txtIdBeneficio, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                        .addComponent(txtMontoBeneficio))
+                    .addComponent(txtDescripBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPlaca)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblId)
+                    .addComponent(txtIdBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMarca)
-                    .addComponent(txtPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNom)
+                    .addComponent(txtNomBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAnio)
-                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(lblDescripcion)
+                    .addComponent(txtDescripBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMonto)
+                    .addComponent(txtMontoBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -139,7 +177,7 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
                         .addGap(15, 15, 15)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(107, 107, 107)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -150,54 +188,57 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //        Puestos puesto = new Puestos();
-        //        //Validación de campos vacíos
-        //        if (txtId.getText().isBlank()
-            //                || txtPuesto.getText().isBlank()
-            //                || txtSalario.getText().isBlank()) {
-            //
-            //            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
-            //        } else {
-            //            //Agregar try/catch
-            //            try {
-                //                puesto.setIdPuesto(Integer.parseInt(txtId.getText()));
-                //                puesto.setNombrePuesto(txtPuesto.getText());
-                //                puesto.setSalario(Double.parseDouble(txtSalario.getText()));
-                //            } catch (NumberFormatException e) {
-                //                JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
-                //            }
-            //
-            //            switch (this.getTitle()) {
-                //                case "Agregar Puesto" -> {
-                    //                    if (listaPuestos.buscarId(puesto.getIdPuesto()) == null) {
-                        //                        listaPuestos.insertarPuesto(puesto);
-                        //                        JOptionPane.showMessageDialog(this, "Puesto agregado con éxito");
-                        //                        txtId.setText("");
-                        //                        txtPuesto.setText("");
-                        //                        txtSalario.setText("");
-                        //                        txtId.requestFocus();
-                        //                    } else {
-                        //                        JOptionPane.showMessageDialog(this, "El id de puesto ya existe");
-                        //                        txtId.setSelectionStart(0);
-                        //                        txtId.setSelectionEnd(txtId.getText().length());
-                        //                        txtId.requestFocus();
-                        //                    }
-                    //                }
-                //
-                //                case "Editar Puesto" -> {
-                    //                    listaPuestos.editarPuesto(pos, puesto);
-                    //                    JOptionPane.showMessageDialog(this, "Puesto editado con éxito");
-                    //                    this.dispose();
-                    //                }
-                //            }
-            //        }
+        Beneficios beneficios = new Beneficios();
+        //Validación de campos vacíos
+        if (txtIdBeneficio.getText().isBlank()
+                || txtNomBeneficio.getText().isBlank()
+                || txtDescripBeneficio.getText().isBlank()
+                || txtMontoBeneficio.getText().isBlank()) {
+
+            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
+        } else {
+            //Agregar try/catch
+            try {
+                beneficios.setIdBeneficio(Integer.parseInt(txtIdBeneficio.getText()));
+                beneficios.setNomBeneficio(txtNomBeneficio.getText());
+                beneficios.setDescripcion(txtDescripBeneficio.getText());
+                beneficios.setMontoBeneficio(Double.parseDouble(txtMontoBeneficio.getText()));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Id y monto deben ser numéricos");
+            }
+
+            switch (this.getTitle()) {
+                case "Agregar Beneficio" -> {
+                    if (listaBeneficio.buscarId(beneficios.getIdBeneficio()) == null) {
+                        listaBeneficio.insertarBeneficio(beneficios);
+                        JOptionPane.showMessageDialog(this, "Beneficio agregado con éxito");
+                        txtIdBeneficio.setText("");
+                        txtNomBeneficio.setText("");
+                        txtDescripBeneficio.setText("");
+                        txtMontoBeneficio.setText("");
+                        txtIdBeneficio.requestFocus();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El id de beneficio ya existe");
+                        txtIdBeneficio.setSelectionStart(0);
+                        txtIdBeneficio.setSelectionEnd(txtIdBeneficio.getText().length());
+                        txtIdBeneficio.requestFocus();
+                    }
+                }
+
+                case "Editar Beneficio" -> {
+                    listaBeneficio.editarBeneficio(pos, beneficios);
+                    JOptionPane.showMessageDialog(this, "Beneficio editado con éxito");
+                    this.dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
@@ -242,11 +283,13 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblAnio;
-    private javax.swing.JLabel lblMarca;
-    private javax.swing.JLabel lblPlaca;
-    private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtPuesto;
-    private javax.swing.JTextField txtSalario;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblMonto;
+    private javax.swing.JLabel lblNom;
+    private javax.swing.JTextField txtDescripBeneficio;
+    private javax.swing.JTextField txtIdBeneficio;
+    private javax.swing.JTextField txtMontoBeneficio;
+    private javax.swing.JTextField txtNomBeneficio;
     // End of variables declaration//GEN-END:variables
 }

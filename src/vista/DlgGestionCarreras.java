@@ -19,8 +19,8 @@ public class DlgGestionCarreras extends javax.swing.JDialog {
      */
     public DlgGestionCarreras(java.awt.Frame parent, boolean modal, AlmacenamientoCarreras almacenamientoCarreras) {
         super(parent, modal);
-        this.almacenamientoCarreras = almacenamientoCarreras;
         initComponents();
+        this.almacenamientoCarreras = almacenamientoCarreras;
         setTitle("Gestión de Carreras");
     }
 
@@ -68,7 +68,6 @@ public class DlgGestionCarreras extends javax.swing.JDialog {
         });
 
         btnInsertar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnInsertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/insert.png"))); // NOI18N
         btnInsertar.setText("Insertar");
         btnInsertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +76,6 @@ public class DlgGestionCarreras extends javax.swing.JDialog {
         });
 
         btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editar.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +84,6 @@ public class DlgGestionCarreras extends javax.swing.JDialog {
         });
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

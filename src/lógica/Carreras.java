@@ -1,4 +1,3 @@
-
 package lógica;
 
 /**
@@ -7,6 +6,7 @@ package lógica;
  * @author Ariana Araya
  */
 public class Carreras {
+
     private int idCarrera;
     private String nomCarrera;
     private String grado;
@@ -46,6 +46,9 @@ public class Carreras {
     public void setGrado(String grado) {
         this.grado = grado;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.getNomCarrera(); 
+    }
 }

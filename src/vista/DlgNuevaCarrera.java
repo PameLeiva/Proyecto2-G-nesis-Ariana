@@ -1,27 +1,38 @@
+package vista;
 
 import datos.AlmacenamientoCarreras;
+import javax.swing.JOptionPane;
+import lógica.Carreras;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 
-/**
- *
- * @author Mauricio
- */
 public class DlgNuevaCarrera extends javax.swing.JDialog {
-        private AlmacenamientoCarreras almacenamientoCarreras;
+
+    private AlmacenamientoCarreras listaCarreras;
+    protected Carreras carrera;
+    int pos;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgNuevaCarrera.class.getName());
 
     /**
      * Creates new form DlgNuevaCarrera
      */
-    public DlgNuevaCarrera(java.awt.Frame parent, boolean modal,AlmacenamientoCarreras almacenamientoCarreras) {
+    public DlgNuevaCarrera(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.almacenamientoCarreras = almacenamientoCarreras;
+    }
+
+    public DlgNuevaCarrera(java.awt.Frame parent, boolean modal, AlmacenamientoCarreras listaCarreras) {
+        super(parent, modal);
+        initComponents();
+        this.listaCarreras = listaCarreras;
+    }
+
+    public DlgNuevaCarrera(java.awt.Frame parent, boolean modal, AlmacenamientoCarreras listaCarreras, Carreras carrera, int pos) {
+        super(parent, modal);
+        initComponents();
+        this.listaCarreras = listaCarreras;
+        this.carrera = carrera;
+        this.pos = pos;
     }
 
     /**
@@ -80,20 +91,20 @@ public class DlgNuevaCarrera extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblPlaca.setText("I:d");
+        lblPlaca.setText("Id:");
 
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         lblMarca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMarca.setText("Puesto:");
+        lblMarca.setText("Carrera:");
 
         txtPuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         lblAnio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblAnio.setText("Salario:");
+        lblAnio.setText("Grado:");
 
         txtSalario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -161,47 +172,47 @@ public class DlgNuevaCarrera extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //        Puestos puesto = new Puestos();
-        //        //Validación de campos vacíos
-        //        if (txtId.getText().isBlank()
-            //                || txtPuesto.getText().isBlank()
-            //                || txtSalario.getText().isBlank()) {
-            //
-            //            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
-            //        } else {
-            //            //Agregar try/catch
-            //            try {
-                //                puesto.setIdPuesto(Integer.parseInt(txtId.getText()));
-                //                puesto.setNombrePuesto(txtPuesto.getText());
-                //                puesto.setSalario(Double.parseDouble(txtSalario.getText()));
-                //            } catch (NumberFormatException e) {
-                //                JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
-                //            }
-            //
-            //            switch (this.getTitle()) {
-                //                case "Agregar Puesto" -> {
-                    //                    if (listaPuestos.buscarId(puesto.getIdPuesto()) == null) {
-                        //                        listaPuestos.insertarPuesto(puesto);
-                        //                        JOptionPane.showMessageDialog(this, "Puesto agregado con éxito");
-                        //                        txtId.setText("");
-                        //                        txtPuesto.setText("");
-                        //                        txtSalario.setText("");
-                        //                        txtId.requestFocus();
-                        //                    } else {
-                        //                        JOptionPane.showMessageDialog(this, "El id de puesto ya existe");
-                        //                        txtId.setSelectionStart(0);
-                        //                        txtId.setSelectionEnd(txtId.getText().length());
-                        //                        txtId.requestFocus();
-                        //                    }
-                    //                }
-                //
-                //                case "Editar Puesto" -> {
-                    //                    listaPuestos.editarPuesto(pos, puesto);
-                    //                    JOptionPane.showMessageDialog(this, "Puesto editado con éxito");
-                    //                    this.dispose();
-                    //                }
-                //            }
-            //        }
+                Carreras carrera = new Carreras();
+                //Validación de campos vacíos
+                if (txtId.getText().isBlank()
+                        || txtPuesto.getText().isBlank()
+                        || txtSalario.getText().isBlank()) {
+        
+                    JOptionPane.showMessageDialog(this, "Hay campos vacíos");
+                } else {
+                    //Agregar try/catch
+                    try {
+                        carrera.setIdCarrera(Integer.parseInt(txtId.getText()));
+                        carrera.setNomCarrera(txtPuesto.getText());
+                        carrera.setGrado(txtSalario.getText());
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
+                    }
+        
+                    switch (this.getTitle()) {
+                        case "Agregar Carrera" -> {
+                            if (listaCarreras.buscarId(carrera.getIdCarrera()) == null) {
+                                listaCarreras.insertarCarreras(carrera);
+                                JOptionPane.showMessageDialog(this, "Puesto agregado con éxito");
+                                txtId.setText("");
+                                txtPuesto.setText("");
+                                txtSalario.setText("");
+                                txtId.requestFocus();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "El id de carrera ya existe");
+                                txtId.setSelectionStart(0);
+                                txtId.setSelectionEnd(txtId.getText().length());
+                                txtId.requestFocus();
+                            }
+                        }
+        
+                        case "Editar Carrera" -> {
+                            listaCarreras.editarCarreras(pos, carrera);
+                            JOptionPane.showMessageDialog(this, "Puesto editado con éxito");
+                            this.dispose();
+                        }
+                    }
+                }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

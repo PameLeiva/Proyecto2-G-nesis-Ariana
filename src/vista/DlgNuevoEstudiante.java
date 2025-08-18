@@ -1,16 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package vista;
+
+import datos.AlmacenamientoCarreras;
+import datos.AlmacenamientoEstudiante;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lógica.Carreras;
+import lógica.Estudiante;
 
 /**
  *
  * @author Mauricio
  */
 public class DlgNuevoEstudiante extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgNuevoEstudiante.class.getName());
+    protected AlmacenamientoEstudiante listaEstudiantes;
+    protected AlmacenamientoCarreras listaCarreras;
+    int pos;
+    Estudiante estudiante;
 
     /**
      * Creates new form DlgNuevoEstudiante
@@ -18,6 +25,24 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
     public DlgNuevoEstudiante(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public DlgNuevoEstudiante(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiantes, AlmacenamientoCarreras listaCarreras) {
+        super(parent, modal);
+        initComponents();
+        this.listaEstudiantes = listaEstudiantes;
+        this.listaCarreras = listaCarreras;
+
+    }
+
+    public DlgNuevoEstudiante(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiantes, AlmacenamientoCarreras listaCarreras,
+            Estudiante estudiante, int pos) {
+        super(parent, modal);
+        initComponents();
+        this.listaEstudiantes = listaEstudiantes;
+        this.listaCarreras = listaCarreras;
+        this.estudiante = estudiante;
+        this.pos = pos;
     }
 
     /**
@@ -34,13 +59,32 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblPlaca = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
+        txtCed = new javax.swing.JTextField();
         lblMarca = new javax.swing.JLabel();
-        txtPuesto = new javax.swing.JTextField();
+        txtNom = new javax.swing.JTextField();
         lblAnio = new javax.swing.JLabel();
-        txtSalario = new javax.swing.JTextField();
+        txtCarnet = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        lblAnio1 = new javax.swing.JLabel();
+        lblAnio2 = new javax.swing.JLabel();
+        lblAnio3 = new javax.swing.JLabel();
+        dtpFechaNac = new com.github.lgooddatepicker.components.DatePicker();
+        dtpFechaIngreso = new com.github.lgooddatepicker.components.DatePicker();
+        dtpFechaEgreso = new com.github.lgooddatepicker.components.DatePicker();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblAnio4 = new javax.swing.JLabel();
+        cmbCarrera = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -76,22 +120,48 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblPlaca.setText("I:d");
+        lblPlaca.setText("Cédula:");
 
-        txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCed.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         lblMarca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMarca.setText("Puesto:");
+        lblMarca.setText("Nombre:");
 
-        txtPuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         lblAnio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblAnio.setText("Salario:");
+        lblAnio.setText("Carnet:");
 
-        txtSalario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCarnet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        lblAnio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAnio1.setText("Dirección:");
+
+        lblAnio2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAnio2.setText("Email:");
+
+        lblAnio3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAnio3.setText("Teléfono:");
+
+        jLabel1.setText("Fecha Nacimiento:");
+
+        jLabel2.setText("Fecha Ingreso:");
+
+        jLabel3.setText("Fecha Egreso:");
+
+        lblAnio4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAnio4.setText("Carrera:");
+
+        cmbCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,14 +172,40 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblMarca)
                     .addComponent(lblPlaca)
-                    .addComponent(lblAnio))
+                    .addComponent(lblAnio)
+                    .addComponent(lblAnio2)
+                    .addComponent(lblAnio3)
+                    .addComponent(lblAnio1)
+                    .addComponent(lblAnio4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                        .addComponent(txtSalario))
-                    .addComponent(txtPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCed, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                .addComponent(txtCarnet, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dtpFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dtpFechaEgreso, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                                    .addComponent(dtpFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addComponent(cmbCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,16 +213,48 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlaca)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMarca)
-                    .addComponent(txtPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAnio)
-                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(txtCed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtpFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblMarca)
+                            .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAnio)
+                            .addComponent(txtCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dtpFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAnio3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAnio1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAnio2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAnio4)
+                            .addComponent(cmbCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dtpFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,13 +262,12 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -148,58 +275,128 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //        Puestos puesto = new Puestos();
-        //        //Validación de campos vacíos
-        //        if (txtId.getText().isBlank()
-            //                || txtPuesto.getText().isBlank()
-            //                || txtSalario.getText().isBlank()) {
-            //
-            //            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
-            //        } else {
-            //            //Agregar try/catch
-            //            try {
-                //                puesto.setIdPuesto(Integer.parseInt(txtId.getText()));
-                //                puesto.setNombrePuesto(txtPuesto.getText());
-                //                puesto.setSalario(Double.parseDouble(txtSalario.getText()));
-                //            } catch (NumberFormatException e) {
-                //                JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
-                //            }
-            //
-            //            switch (this.getTitle()) {
-                //                case "Agregar Puesto" -> {
-                    //                    if (listaPuestos.buscarId(puesto.getIdPuesto()) == null) {
-                        //                        listaPuestos.insertarPuesto(puesto);
-                        //                        JOptionPane.showMessageDialog(this, "Puesto agregado con éxito");
-                        //                        txtId.setText("");
-                        //                        txtPuesto.setText("");
-                        //                        txtSalario.setText("");
-                        //                        txtId.requestFocus();
-                        //                    } else {
-                        //                        JOptionPane.showMessageDialog(this, "El id de puesto ya existe");
-                        //                        txtId.setSelectionStart(0);
-                        //                        txtId.setSelectionEnd(txtId.getText().length());
-                        //                        txtId.requestFocus();
-                        //                    }
-                    //                }
-                //
-                //                case "Editar Puesto" -> {
-                    //                    listaPuestos.editarPuesto(pos, puesto);
-                    //                    JOptionPane.showMessageDialog(this, "Puesto editado con éxito");
-                    //                    this.dispose();
-                    //                }
-                //            }
-            //        }
+        Estudiante estudiante = new Estudiante();
+
+        //Validación de campos vacíos
+        if (txtCed.getText().isBlank()
+                || txtCarnet.getText().isBlank()
+                || txtNom.getText().isBlank() || txtTelefono.getText().isBlank()
+                || txtDireccion.getText().isBlank()
+                || txtEmail.getText().isBlank()
+                || dtpFechaNac.getDate() == null
+                || dtpFechaIngreso.getDate() == null
+                || cmbCarrera.getSelectedIndex() == -1) {
+
+            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
+        } else {
+            //Agregar try/catch
+            try {
+                estudiante.setCed(Integer.parseInt(txtCed.getText()));
+                estudiante.setCarnet(Integer.parseInt(txtCarnet.getText()));
+                estudiante.setNom(txtNom.getText());
+                estudiante.setDireccion(txtDireccion.getText());
+                estudiante.setTelefono(txtTelefono.getText());
+                estudiante.setEmail(txtEmail.getText());
+                estudiante.setFechNac(dtpFechaNac.getDate());
+                estudiante.setFechaIngreso(dtpFechaIngreso.getDate());
+                String nombreCarrera = (String) cmbCarrera.getSelectedItem();
+                Carreras carreraSeleccionada = buscaCarreraNom(nombreCarrera);
+
+                if (carreraSeleccionada != null) {
+                    estudiante.setCarrera(carreraSeleccionada.getIdCarrera());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Carrera no válida");
+                    return;
+                }
+                if (dtpFechaEgreso.getDate() != null) {
+                    estudiante.setFechaEgreso(dtpFechaEgreso.getDate());
+                } else {
+                    estudiante.setFechaEgreso(null);
+                }
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
+            }
+
+            switch (this.getTitle()) {
+                case "Agregar Estudiante" -> {
+                    if (listaEstudiantes.buscarCedula(estudiante.getCed()) == null && listaEstudiantes.buscarCarnet(estudiante.getCarnet()) == null) {
+                        listaEstudiantes.insertarEstudiante(estudiante);
+                        JOptionPane.showMessageDialog(this, "Estudiante agregado con éxito");
+                        txtCed.setText("");
+                        txtCarnet.setText("");
+                        txtNom.setText("");
+                        txtTelefono.setText("");
+                        txtDireccion.setText("");
+                        txtEmail.setText("");
+
+                        dtpFechaNac.setDate(null);
+                        dtpFechaIngreso.setDate(null);
+                        dtpFechaEgreso.setDate(null);
+
+                        cmbCarrera.setSelectedIndex(-1);
+                        txtCed.requestFocus();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El id de puesto ya existe");
+                        txtCed.setSelectionStart(0);
+                        txtCed.setSelectionEnd(txtCed.getText().length());
+                        txtCed.requestFocus();
+                    }
+                }
+
+                case "Editar Estudiante" -> {
+                    listaEstudiantes.editarEstudiante(pos, estudiante);
+                    JOptionPane.showMessageDialog(this, "Estudiante editado con éxito");
+                    this.dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        cmbCarrera.removeAllItems();
+        for (Carreras c : listaCarreras.getListaCarreras()) {
+            cmbCarrera.addItem(c.getNomCarrera());
+        }
+        if (this.getTitle().equals("Editar Estudiante")) {
+            txtCed.setText(String.valueOf(estudiante.getCed()));
+            txtCed.setEnabled(false);
+            txtCarnet.setText(String.valueOf(estudiante.getCarnet()));
+            txtCarnet.setEnabled(false); 
+            txtNom.setText(estudiante.getNom());
+            txtTelefono.setText(String.valueOf(estudiante.getTelefono()));
+            txtEmail.setText(estudiante.getEmail());
+            txtDireccion.setText(estudiante.getDireccion());
+
+            cmbCarrera.setSelectedItem(listaCarreras.buscarId(estudiante.getCarrera()).getNomCarrera());
+            dtpFechaNac.setDate(estudiante.getFechNac());
+            dtpFechaIngreso.setDate(estudiante.getFechaIngreso());
+            if (estudiante.getFechaEgreso() != null) {
+                dtpFechaEgreso.setDate(estudiante.getFechaEgreso());
+
+            }
+
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    private Carreras buscaCarreraNom(String nombre) {
+    for (Carreras c : listaCarreras.getListaCarreras()) {
+        if (c.getNomCarrera().equals(nombre)) {
+            return c;
+        }
+    }
+    return null;
+}
+    
     /**
      * @param args the command line arguments
      */
@@ -240,13 +437,27 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cmbCarrera;
+    private com.github.lgooddatepicker.components.DatePicker dtpFechaEgreso;
+    private com.github.lgooddatepicker.components.DatePicker dtpFechaIngreso;
+    private com.github.lgooddatepicker.components.DatePicker dtpFechaNac;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblAnio;
+    private javax.swing.JLabel lblAnio1;
+    private javax.swing.JLabel lblAnio2;
+    private javax.swing.JLabel lblAnio3;
+    private javax.swing.JLabel lblAnio4;
     private javax.swing.JLabel lblMarca;
     private javax.swing.JLabel lblPlaca;
-    private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtPuesto;
-    private javax.swing.JTextField txtSalario;
+    private javax.swing.JTextField txtCarnet;
+    private javax.swing.JTextField txtCed;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNom;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
