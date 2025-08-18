@@ -7,6 +7,11 @@ package vista;
 import datos.AlmacenamientoBeneficios;
 import datos.AlmacenamientoBeneficiosEstudiantes;
 import datos.AlmacenamientoEstudiante;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lógica.Beneficios;
+import lógica.BeneficiosEstudiantes;
+import lógica.Estudiante;
 
 /**
  *
@@ -18,6 +23,8 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
     protected AlmacenamientoBeneficios listaBeneficios;
     protected AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
     protected AlmacenamientoEstudiante listaEstudiantes;
+    Estudiante estudiante;
+    private DefaultTableModel tblModel;
 
     /**
      * Creates new form DlgAsignarBeneficios
@@ -37,6 +44,16 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
 
     }
 
+    public DlgAsignarBeneficios(java.awt.Frame parent, boolean modal, Estudiante estudiante,
+            AlmacenamientoBeneficios listaBeneficios, AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante) {
+        super(parent, modal);
+        initComponents();
+        this.estudiante = estudiante;
+        this.listaBeneficios = listaBeneficios;
+        this.listaBeneficioEstudiante = listaBeneficioEstudiante;
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,21 +63,323 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        lblPlaca = new javax.swing.JLabel();
+        txtCarnetInfo = new javax.swing.JTextField();
+        lblMarca = new javax.swing.JLabel();
+        txtCedInfo = new javax.swing.JTextField();
+        lblAnio = new javax.swing.JLabel();
+        txtNomInfo = new javax.swing.JTextField();
+        cmbEstudiante = new javax.swing.JComboBox<>();
+        lblAnio1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        btnAsignar = new javax.swing.JButton();
+        btnQuitar = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        cmbBeneficios = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblBeneAsignados = new javax.swing.JTable();
+        btnCerrar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblPlaca.setText("Carnet:");
+
+        txtCarnetInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        lblMarca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMarca.setText("Cedula:");
+
+        txtCedInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        lblAnio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAnio.setText("Nombre:");
+
+        txtNomInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        lblAnio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAnio1.setText("Estudiante:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblMarca)
+                    .addComponent(lblPlaca)
+                    .addComponent(lblAnio)
+                    .addComponent(lblAnio1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCedInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cmbEstudiante, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCarnetInfo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtNomInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(cmbEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCarnetInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPlaca))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCedInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMarca))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNomInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAnio)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(lblAnio1)))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        btnAsignar.setText("Asignar");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
+        btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
+
+        btnPagar.setText("Pagar");
+
+        jLabel1.setText("Beneficio:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(btnAsignar)
+                .addGap(91, 91, 91)
+                .addComponent(btnQuitar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPagar)
+                .addGap(35, 35, 35))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(cmbBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAsignar)
+                    .addComponent(btnQuitar)
+                    .addComponent(btnPagar))
+                .addContainerGap())
+        );
+
+        tblBeneAsignados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblBeneAsignados);
+
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(202, 202, 202)
+                .addComponent(btnCerrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCerrar)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        Beneficios b = (Beneficios) cmbBeneficios.getSelectedItem();
+        if (b == null) {
+            JOptionPane.showMessageDialog(this, "Debe señeccionar un beneficio valido");
+            return;
+        }
+
+        Estudiante est;
+
+        if (estudiante != null) {
+            est = this.estudiante;
+        } else {
+            String nombreSeleccionado = (String) cmbEstudiante.getSelectedItem();
+            est = buscarEstudianteNom(nombreSeleccionado);
+
+            if (est == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un estudiante válido");
+                return;
+            }
+        }
+
+        int ced = estudiante.getCed();
+
+        BeneficiosEstudiantes nuevo = new BeneficiosEstudiantes(ced, b.getIdBeneficio());
+        if (!listaBeneficioEstudiante.tieneBeneficio(ced, b.getIdBeneficio())) {
+            listaBeneficioEstudiante.asignarBeneficio(nuevo);
+            muestraTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "Este beneficio ya está asignado");
+        }
+
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        if (estudiante == null) {
+            llenarCmbEstudiantes();
+        } else {
+            mostrarDatosEst(estudiante);
+            cmbEstudiante.setVisible(false);
+        }
+
+        llenarCmbBeneficios();
+        muestraTabla();
+
+    }//GEN-LAST:event_formWindowActivated
+    private void muestraTabla() {
+        String[] titulo = {"ID", "Nombre del Beneficio", "Monto", "Descripción"};
+        tblModel = new DefaultTableModel(null, titulo);
+
+        int ced;
+        if (estudiante != null) {
+            ced = estudiante.getCed();
+        } else {
+            String nomEstudiante = (String) cmbEstudiante.getSelectedItem();
+            Estudiante selec = buscarEstudianteNom(nomEstudiante);
+            if (selec == null) {
+                tblBeneAsignados.setModel(tblModel); // tabla vacía
+                return;
+            }
+            ced = selec.getCed();
+
+        }
+        for (BeneficiosEstudiantes be : listaBeneficioEstudiante.obtenerBeneficiosDeEstudiante(ced)) {
+            Beneficios b = listaBeneficios.buscarId(be.getIdBeneficio());
+            if (b != null) {
+                Object[] row = {
+                    b.getIdBeneficio(),
+                    b.getNomBeneficio(),
+                    b.getMontoBeneficio(),
+                    b.getDescripcion()
+                };
+                tblModel.addRow(row);
+            }
+        }
+
+        tblBeneAsignados.setModel(tblModel);
+    }
+
+    private void mostrarDatosEst(Estudiante estudiante) {
+        txtCarnetInfo.setText(String.valueOf(estudiante.getCarnet()));
+        txtCarnetInfo.setEnabled(false);
+        txtCedInfo.setText(String.valueOf(estudiante.getCed()));
+        txtCedInfo.setEnabled(false);
+        txtNomInfo.setText(estudiante.getNom());
+        txtNomInfo.setEnabled(false);
+
+    }
+
+    private void llenarCmbEstudiantes() {
+        cmbEstudiante.removeAllItems();
+        for (Estudiante e : listaEstudiantes.getListaEstudiantes()) {
+            cmbEstudiante.addItem(e.getNom());
+        }
+
+    }
+
+    private void llenarCmbBeneficios() {
+        cmbBeneficios.removeAllItems();
+        for (Beneficios b : listaBeneficios.getListaBeneficios()) {
+            cmbBeneficios.addItem(b.getNomBeneficio());
+        }
+
+    }
+
+    private Estudiante buscarEstudianteNom(String nombre) {
+        for (Estudiante e : listaEstudiantes.getListaEstudiantes()) {
+            if (e.getNom().equals(nombre)) {
+                return e;
+            }
+        }
+        return null;
+    }
 
     /**
      * @param args the command line arguments
@@ -100,5 +419,24 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsignar;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnQuitar;
+    private javax.swing.JComboBox<String> cmbBeneficios;
+    private javax.swing.JComboBox<String> cmbEstudiante;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAnio;
+    private javax.swing.JLabel lblAnio1;
+    private javax.swing.JLabel lblMarca;
+    private javax.swing.JLabel lblPlaca;
+    private javax.swing.JTable tblBeneAsignados;
+    private javax.swing.JTextField txtCarnetInfo;
+    private javax.swing.JTextField txtCedInfo;
+    private javax.swing.JTextField txtNomInfo;
     // End of variables declaration//GEN-END:variables
+
 }

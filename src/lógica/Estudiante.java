@@ -61,5 +61,8 @@ public class Estudiante extends Persona{
     public void setCarrera(int carrera) {
         this.carrera = carrera;
     }
-    
+    @Override
+public String toString() {
+    return carnet + " - " + getNom(); // o como prefieras mostrarlo
+}
 }

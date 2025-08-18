@@ -5,6 +5,12 @@
 package vista;
 
 import datos.AlmacenamientoBeneficios;
+import datos.AlmacenamientoBeneficiosEstudiantes;
+import datos.AlmacenamientoEstudiante;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lógica.Beneficios;
+import lógica.Estudiante;
 
 /**
  *
@@ -14,6 +20,10 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgGestionBeneficios.class.getName());
     protected AlmacenamientoBeneficios listaBeneficios;
+    private AlmacenamientoEstudiante listaEstudiantes;
+    private AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
+    private Estudiante estudiante;
+     private DefaultTableModel tblModel;
 
     /**
      * Creates new form DlgGestionBeneficios
@@ -23,10 +33,22 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
         initComponents();
     }
 
-    public DlgGestionBeneficios(java.awt.Frame parent, boolean modal, AlmacenamientoBeneficios lisBeneficios) {
+    public DlgGestionBeneficios(java.awt.Frame parent, boolean modal,
+        AlmacenamientoBeneficios listaBeneficios) {
         super(parent, modal);
         initComponents();
-        this.listaBeneficios = lisBeneficios;
+        this.listaBeneficios = listaBeneficios;
+    }
+    public DlgGestionBeneficios(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
+        AlmacenamientoBeneficios listaBeneficios,
+            AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante,
+            Estudiante estudiante) {
+        super(parent, modal);
+        initComponents();
+        this.listaEstudiantes = listaEstudiante;
+        this.listaBeneficios = listaBeneficios;
+        this.listaBeneficioEstudiante = listaBeneficioEstudiante;
+        this.estudiante = estudiante;
     }
 
     /**
@@ -47,9 +69,14 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPuestos = new javax.swing.JTable();
+        tblBeneficios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         lblCant.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblCant.setText("Cantidad de registros:");
@@ -126,7 +153,7 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        tblPuestos.setModel(new javax.swing.table.DefaultTableModel(
+        tblBeneficios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -134,7 +161,7 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(tblPuestos);
+        jScrollPane1.setViewportView(tblBeneficios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,49 +224,67 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        //        DlgNuevoPuesto win = new DlgNuevoPuesto(null, true,
-        //                listaPuestos);
-        //        win.setTitle("Agregar Puesto");
-        //        win.setVisible(true);
-        //        this.listaPuestos = win.listaPuestos;
+        DlgNuevoBeneficio win = new DlgNuevoBeneficio(null, true, listaEstudiantes, listaBeneficios, listaBeneficioEstudiante, estudiante);
+        win.setTitle("Agregar Beneficio");
+        win.setVisible(true);
+        this.listaBeneficios = win.listaBeneficio;
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        //        if (tblPuestos.getSelectedRowCount() == 1) {
-        //            int pos = tblPuestos.getSelectedRow();
-        //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
-        //
-        //            Puestos puesto = listaPuestos.buscarId(id);
-        //
-        //            DlgNuevoPuesto winEditar = new DlgNuevoPuesto(null, true, listaPuestos, puesto, pos);
-        //
-        //            winEditar.setTitle("Editar Puesto");
-        //            winEditar.setLocationRelativeTo(null);
-        //            winEditar.setVisible(true);
-        //
-        //            this.listaPuestos = winEditar.listaPuestos;
-        //        } else {
-        //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
-        //        }
+                if (tblBeneficios.getSelectedRowCount() == 1) {
+                    int pos = tblBeneficios.getSelectedRow();
+                    int id = Integer.parseInt(tblBeneficios.getValueAt(tblBeneficios.getSelectedRow(), 0).toString());
+        
+                    Beneficios beneficios = listaBeneficios.buscarId(id);
+        
+                    DlgNuevoBeneficio winEditar = new DlgNuevoBeneficio(null, true, listaEstudiantes, listaBeneficios, listaBeneficioEstudiante, estudiante);
+        
+                    winEditar.setTitle("Editar Beneficio");
+                    winEditar.setLocationRelativeTo(null);
+                    winEditar.setVisible(true);
+        
+                    this.listaBeneficios = winEditar.listaBeneficio;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Beneficio");
+                }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        //        if (tblPuestos.getSelectedRowCount() == 1) {
-        //            int id = Integer.parseInt(tblPuestos.getValueAt(tblPuestos.getSelectedRow(), 0).toString());
-        //
-        //            int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el auto");
-        //
-        //            Puestos puesto = listaPuestos.buscarId(id);
-        //            if (resp == 0) {  //Sí quiere eliminar el puesto
-        //                if (listaPuestos.eliminarPuesto(puesto)) {
-        //                    JOptionPane.showMessageDialog(this, "Auto eliminado");
-        //                }
-        //            }
-        //        } else {
-        //            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Puesto");
-        //        }
+                if (tblBeneficios.getSelectedRowCount() == 1) {
+                    int id = Integer.parseInt(tblBeneficios.getValueAt(tblBeneficios.getSelectedRow(), 0).toString());
+        
+                    int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el auto");
+        
+                    Beneficios beneficios = listaBeneficios.buscarId(id);
+                    if (resp == 0) {  //Sí quiere eliminar el puesto
+                        if (listaBeneficios.eliminarBeneficio(beneficios)) {
+                            JOptionPane.showMessageDialog(this, "Beneficio eliminado");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Beneficio");
+                }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+cargarTabla();
+    }//GEN-LAST:event_formWindowActivated
+private void cargarTabla() {
+    String[] titulos = {"ID", "Nombre", "Monto", "Descripción"};
+    DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+
+    for (Beneficios b : listaBeneficios.getListaBeneficios()) {
+        Object[] fila = {
+            b.getIdBeneficio(),
+            b.getNomBeneficio(),
+            b.getMontoBeneficio(),
+            b.getDescripcion()
+        };
+        modelo.addRow(fila);
+    }
+
+    tblBeneficios.setModel(modelo);
+}
     /**
      * @param args the command line arguments
      */
@@ -285,7 +330,7 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCant;
-    private javax.swing.JTable tblPuestos;
+    private javax.swing.JTable tblBeneficios;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCant;
     // End of variables declaration//GEN-END:variables

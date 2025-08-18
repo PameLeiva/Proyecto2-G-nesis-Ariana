@@ -18,10 +18,10 @@ import lógica.Estudiante;
 public class DlgNuevoBeneficio extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgNuevoBeneficio.class.getName());
-    private AlmacenamientoEstudiante listaEstudiantes;
-    private AlmacenamientoBeneficios listaBeneficio;
-    private AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
-    private Estudiante estudiante;
+    protected AlmacenamientoEstudiante listaEstudiantes;
+    protected AlmacenamientoBeneficios listaBeneficio;
+    protected AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
+    protected Estudiante estudiante;
     int pos;
 
     /**
