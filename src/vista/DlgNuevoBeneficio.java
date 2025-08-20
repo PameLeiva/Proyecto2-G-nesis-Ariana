@@ -21,6 +21,7 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
     protected AlmacenamientoEstudiante listaEstudiantes;
     protected AlmacenamientoBeneficios listaBeneficio;
     protected AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
+    protected Beneficios beneficio;
     protected Estudiante estudiante;
     int pos;
 
@@ -35,13 +36,25 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
     public DlgNuevoBeneficio(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
             AlmacenamientoBeneficios listaBeneficio,
             AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante,
-            Estudiante estudiante) {
+            Beneficios beneficio) {
         super(parent, modal);
         initComponents();
         this.listaEstudiantes = listaEstudiante;
         this.listaBeneficio = listaBeneficio;
         this.listaBeneficioEstudiante = listaBeneficioEstudiante;
-        this.estudiante = estudiante;
+       this.beneficio = beneficio;
+
+    }
+    public DlgNuevoBeneficio(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
+            AlmacenamientoBeneficios listaBeneficio,
+            AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante,
+           Estudiante estudiante) {
+        super(parent, modal);
+        initComponents();
+        this.listaEstudiantes = listaEstudiante;
+        this.listaBeneficio = listaBeneficio;
+        this.listaBeneficioEstudiante = listaBeneficioEstudiante;
+   this.estudiante = estudiante;
 
     }
 
@@ -68,6 +81,11 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
         lblMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -240,6 +258,16 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       if (this.getTitle().equals("Editar Beneficio") && beneficio != null) {
+        txtIdBeneficio.setText(String.valueOf(beneficio.getIdBeneficio()));
+        txtIdBeneficio.setEnabled(false);
+        txtNomBeneficio.setText(beneficio.getNomBeneficio());
+        txtMontoBeneficio.setText(String.valueOf(beneficio.getMontoBeneficio()));
+        txtDescripBeneficio.setText(beneficio.getDescripcion());
+    }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

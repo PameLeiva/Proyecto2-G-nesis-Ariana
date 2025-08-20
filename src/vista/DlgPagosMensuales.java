@@ -1,17 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package vista;
 
 import datos.AlmacenamientoBeneficios;
 import datos.AlmacenamientoBeneficiosEstudiantes;
 import datos.AlmacenamientoEstudiante;
 import datos.AlmacenamientoPagosMensuales;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lógica.PagosMensuales;
 
 /**
  *
- * @author Mauricio
+ * @author Génesis Leiva
+ * @author Ariana Araya
  */
 public class DlgPagosMensuales extends javax.swing.JDialog {
 
@@ -20,6 +25,10 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
     protected AlmacenamientoBeneficios listaBeneficio;
     protected AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
     protected AlmacenamientoPagosMensuales listaPagosMesuales;
+    private DefaultTableModel tblModel;
+    protected String mesSelec;
+    protected int anioSelec;
+    protected ArrayList<PagosMensuales> pagosActuales = new ArrayList<>();
 
     /**
      * Creates new form DlgPagosMensuales
@@ -27,6 +36,8 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
     public DlgPagosMensuales(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        llenarComboMeses(cmbMes);
+        llenarComboMeses(cmbMesPlanilla);
     }
 
     public DlgPagosMensuales(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
@@ -38,7 +49,10 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
         this.listaBeneficio = listaBeneficio;
         this.listaBeneficioEstudiante = listaBeneficioEstudiante;
         this.listaPagosMesuales = listaPagosMesuales;
-                
+        llenarComboMeses(cmbMes);
+        llenarComboMeses(cmbMesPlanilla);
+        txtFechaActual.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
     }
 
     /**
@@ -50,21 +64,383 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtFechaActual = new javax.swing.JTextField();
+        txtAnio = new javax.swing.JTextField();
+        cmbMes = new javax.swing.JComboBox<>();
+        btnGenerar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cmbMesPlanilla = new javax.swing.JComboBox<>();
+        txtAnioPlanilla = new javax.swing.JTextField();
+        btnMostrarPlanilla = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        txtFiltrado = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRegistrosPagos = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Generar Pago mensual"));
+
+        jLabel1.setText("Fecha Actual:");
+
+        jLabel2.setText("Mes:");
+
+        jLabel3.setText("Año:");
+
+        txtFechaActual.setEditable(false);
+        txtFechaActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaActualActionPerformed(evt);
+            }
+        });
+
+        btnGenerar.setText("Generar");
+        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFechaActual)
+                            .addComponent(txtAnio)
+                            .addComponent(cmbMes, 0, 162, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(83, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Generar Pago de un mes"));
+
+        jLabel4.setText("Mes:");
+
+        jLabel5.setText("Año:");
+
+        cmbMesPlanilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMesPlanillaActionPerformed(evt);
+            }
+        });
+
+        btnMostrarPlanilla.setText("Mostrar Planilla");
+        btnMostrarPlanilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarPlanillaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtAnioPlanilla))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbMesPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnMostrarPlanilla)
+                .addGap(102, 102, 102))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbMesPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtAnioPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnMostrarPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
+        jLabel6.setText("Filtrar por:");
+
+        buttonGroup1.add(jCheckBox1);
+        jCheckBox1.setText("Estudiante");
+
+        buttonGroup1.add(jCheckBox2);
+        jCheckBox2.setText("Mes");
+
+        buttonGroup1.add(jCheckBox3);
+        jCheckBox3.setText("Año");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Todos los registros de pagos"));
+
+        tblRegistrosPagos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblRegistrosPagos);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(268, 268, 268)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox3)
+                    .addComponent(txtFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void cmbMesPlanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMesPlanillaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMesPlanillaActionPerformed
+
+    private void btnMostrarPlanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarPlanillaActionPerformed
+        String mesSelec = cmbMesPlanilla.getSelectedItem().toString();
+        int anioSelec;
+        try {
+            anioSelec = Integer.parseInt(txtAnioPlanilla.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un año válido.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (listaPagosMesuales == null || listaEstudiante == null) {
+            JOptionPane.showMessageDialog(this, "Error interno: lista de pagos o estudiantes no inicializada.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar que se puede generar
+        if (!listaPagosMesuales.puedeGenerarPlanilla(mesSelec, anioSelec)) {
+            JOptionPane.showMessageDialog(this,
+                    "Ya existe una planilla para ese mes y año, o la fecha es inválida.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+// Generar la planilla
+        ArrayList<PagosMensuales> pagosInsertados = listaPagosMesuales.generarPlanillaCompleta(mesSelec, anioSelec, listaEstudiante);
+
+// Abrir el segundo diálogo con los datos
+        DlgPlanillaPagoMensual dlg = new DlgPlanillaPagoMensual(null, true, listaEstudiante, listaPagosMesuales);
+        dlg.mesSelec = mesSelec;
+        dlg.anioSelec = anioSelec;
+        dlg.pagosActuales = pagosInsertados;
+        dlg.setVisible(true);
+    }//GEN-LAST:event_btnMostrarPlanillaActionPerformed
+
+    private void txtFechaActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActualActionPerformed
+        txtFechaActual.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+    }//GEN-LAST:event_txtFechaActualActionPerformed
+
+    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
+        if (listaPagosMesuales == null || listaEstudiante == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Error interno: almacenamiento de pagos o lista de estudiantes no inicializada.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return; // sale del método sin intentar generar
+        }
+
+        try {
+
+            String mes = cmbMes.getSelectedItem().toString();
+            int anio = Integer.parseInt(txtAnio.getText());
+
+            if (!listaPagosMesuales.puedeGenerarPlanilla(mes, anio)) {
+                JOptionPane.showMessageDialog(this, "Ya existe planilla para este mes/año o la fecha es inválida",
+                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Genera un pago por cada estudiante con beneficios
+            ArrayList<PagosMensuales> planilla = listaPagosMesuales.generarPlanillaCompleta(mes, anio, listaEstudiante);
+
+            // Mostrar en la tabla
+            tblModel.setRowCount(0); // limpia la tabla
+            for (PagosMensuales pago : planilla) {
+                tblModel.addRow(new Object[]{
+                    pago.getIdPago(),
+                    pago.getEstudiante(),
+                    pago.getMes(),
+                    pago.getFechaPago().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    pago.getTotalBeneficios(),
+                    pago.getDeducSeguro(),
+                    pago.getDeducRenta(),
+                    pago.getPagoNeto()
+                });
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Año inválido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnGenerarActionPerformed
+
+    // Método para llenar un JComboBox con los meses
+    private void llenarComboMeses(JComboBox<String> combo) {
+        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+
+        combo.setModel(new DefaultComboBoxModel<>(meses));
+    }
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {
+        if (pagosActuales != null && !pagosActuales.isEmpty()
+                && listaPagosMesuales != null && mesSelec != null && anioSelec > 0) {
+            cargarDatos(mesSelec, anioSelec, pagosActuales, listaPagosMesuales);
+        }
+
+        // Mostrar fecha actual siempre
+        if (txtFechaActual != null) {
+            txtFechaActual.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        }
+    }
+
+    public void cargarDatos(String mes, int anio, ArrayList<PagosMensuales> pagos, AlmacenamientoPagosMensuales almacenamiento) {
+        String[] titulos = {"ID", "Estudiante", "Mes", "Fecha de Pago", "Monto Neto", "Total Beneficios"};
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+
+        if (pagos == null || pagos.isEmpty()) {
+            tblRegistrosPagos.setModel(modelo); // tabla vacía
+            return;
+        }
+
+        for (PagosMensuales pago : pagos) {
+            Object[] fila = {
+                pago.getIdPago(),
+                pago.getEstudiante(), // Podés mostrar nombre si tenés acceso
+                pago.getMes(),
+                pago.getFechaPago(),
+                String.format("₡ %.2f", pago.getPagoNeto()),
+                String.format("₡ %.2f", pago.getTotalBeneficios())
+            };
+            modelo.addRow(fila);
+        }
+
+        tblRegistrosPagos.setModel(modelo);
+
+    }
 
     /**
      * @param args the command line arguments
@@ -104,5 +480,28 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenerar;
+    private javax.swing.JButton btnMostrarPlanilla;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cmbMes;
+    private javax.swing.JComboBox<String> cmbMesPlanilla;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblRegistrosPagos;
+    private javax.swing.JTextField txtAnio;
+    private javax.swing.JTextField txtAnioPlanilla;
+    private javax.swing.JTextField txtFechaActual;
+    private javax.swing.JTextField txtFiltrado;
     // End of variables declaration//GEN-END:variables
 }

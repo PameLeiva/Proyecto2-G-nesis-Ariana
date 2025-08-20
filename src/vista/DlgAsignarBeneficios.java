@@ -15,7 +15,8 @@ import lógica.Estudiante;
 
 /**
  *
- * @author Mauricio
+ * @author Génesis Leiva
+ * @author Ariana Araya
  */
 public class DlgAsignarBeneficios extends javax.swing.JDialog {
 
@@ -51,6 +52,7 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
         this.estudiante = estudiante;
         this.listaBeneficios = listaBeneficios;
         this.listaBeneficioEstudiante = listaBeneficioEstudiante;
+        cmbEstudiante.setSelectedItem(estudiante);
 
     }
 
@@ -71,7 +73,7 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
         lblAnio = new javax.swing.JLabel();
         txtNomInfo = new javax.swing.JTextField();
         cmbEstudiante = new javax.swing.JComboBox<>();
-        lblAnio1 = new javax.swing.JLabel();
+        lblEstudiante = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnAsignar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
@@ -106,8 +108,14 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
 
         txtNomInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        lblAnio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblAnio1.setText("Estudiante:");
+        cmbEstudiante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEstudianteActionPerformed(evt);
+            }
+        });
+
+        lblEstudiante.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblEstudiante.setText("Estudiante:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,7 +127,7 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
                     .addComponent(lblMarca)
                     .addComponent(lblPlaca)
                     .addComponent(lblAnio)
-                    .addComponent(lblAnio1))
+                    .addComponent(lblEstudiante))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCedInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +158,7 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
                             .addComponent(lblAnio)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(lblAnio1)))
+                        .addComponent(lblEstudiante)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -269,50 +277,71 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        Beneficios b = (Beneficios) cmbBeneficios.getSelectedItem();
-        if (b == null) {
-            JOptionPane.showMessageDialog(this, "Debe señeccionar un beneficio valido");
+        String nombreBeneficio = (String) cmbBeneficios.getSelectedItem();
+    if (nombreBeneficio == null) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un beneficio válido");
+        return;
+    }
+
+    Beneficios b = buscarPorNombre(nombreBeneficio); // método que devuelve el objeto Beneficios
+    if (b == null) {
+        JOptionPane.showMessageDialog(this, "Beneficio no encontrado");
+        return;
+    }
+
+    Estudiante est;
+    if (estudiante != null) {
+        est = this.estudiante;
+    } else {
+        String nombreSeleccionado = (String) cmbEstudiante.getSelectedItem();
+        est = buscarEstudianteNom(nombreSeleccionado);
+        if (est == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un estudiante válido");
             return;
         }
+    }
 
-        Estudiante est;
+    int ced = est.getCed();
+    BeneficiosEstudiantes nuevo = new BeneficiosEstudiantes(ced, b.getIdBeneficio());
 
-        if (estudiante != null) {
-            est = this.estudiante;
-        } else {
-            String nombreSeleccionado = (String) cmbEstudiante.getSelectedItem();
-            est = buscarEstudianteNom(nombreSeleccionado);
-
-            if (est == null) {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un estudiante válido");
-                return;
-            }
-        }
-
-        int ced = estudiante.getCed();
-
-        BeneficiosEstudiantes nuevo = new BeneficiosEstudiantes(ced, b.getIdBeneficio());
-        if (!listaBeneficioEstudiante.tieneBeneficio(ced, b.getIdBeneficio())) {
-            listaBeneficioEstudiante.asignarBeneficio(nuevo);
-            muestraTabla();
-        } else {
-            JOptionPane.showMessageDialog(this, "Este beneficio ya está asignado");
-        }
+    if (!listaBeneficioEstudiante.tieneBeneficio(ced, b.getIdBeneficio())) {
+        listaBeneficioEstudiante.asignarBeneficio(nuevo);
+        muestraTabla();
+    } else {
+        JOptionPane.showMessageDialog(this, "Este beneficio ya está asignado");
+    }
 
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if (estudiante == null) {
-            llenarCmbEstudiantes();
-        } else {
-            mostrarDatosEst(estudiante);
-            cmbEstudiante.setVisible(false);
-        }
+                           
+    if (estudiante == null) {
+        // Caso abrir desde menú principal
+        llenarCmbEstudiantes();
+        cmbEstudiante.setVisible(true);
+        lblEstudiante.setVisible(true);
+    } else {
+        // Caso abrir desde ventana de estudiante
+        mostrarDatosEst(estudiante);
+        cmbEstudiante.setVisible(false);
+        lblEstudiante.setVisible(false);
+    }
 
-        llenarCmbBeneficios();
-        muestraTabla();
+    llenarCmbBeneficios();
+    muestraTabla();
 
     }//GEN-LAST:event_formWindowActivated
+
+    private void cmbEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstudianteActionPerformed
+       String nombreSeleccionado = (String) cmbEstudiante.getSelectedItem();
+    if (nombreSeleccionado != null) {
+        Estudiante est = buscarEstudianteNom(nombreSeleccionado); 
+        if (est != null) {
+            mostrarDatosEst(est);
+            muestraTabla();
+        }
+    }
+    }//GEN-LAST:event_cmbEstudianteActionPerformed
     private void muestraTabla() {
         String[] titulo = {"ID", "Nombre del Beneficio", "Monto", "Descripción"};
         tblModel = new DefaultTableModel(null, titulo);
@@ -380,6 +409,15 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
         }
         return null;
     }
+    public Beneficios buscarPorNombre(String nombre) {
+    for (Beneficios b : listaBeneficios.getListaBeneficios()) {
+        if (b.getNomBeneficio().equals(nombre)) {
+            return b;
+        }
+    }
+    return null;
+}
+
 
     /**
      * @param args the command line arguments
@@ -430,7 +468,7 @@ public class DlgAsignarBeneficios extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAnio;
-    private javax.swing.JLabel lblAnio1;
+    private javax.swing.JLabel lblEstudiante;
     private javax.swing.JLabel lblMarca;
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JTable tblBeneAsignados;

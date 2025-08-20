@@ -23,7 +23,7 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     private AlmacenamientoEstudiante listaEstudiantes;
     private AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
     private Estudiante estudiante;
-     private DefaultTableModel tblModel;
+    private DefaultTableModel tblModel;
 
     /**
      * Creates new form DlgGestionBeneficios
@@ -34,13 +34,14 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     }
 
     public DlgGestionBeneficios(java.awt.Frame parent, boolean modal,
-        AlmacenamientoBeneficios listaBeneficios) {
+            AlmacenamientoBeneficios listaBeneficios) {
         super(parent, modal);
         initComponents();
         this.listaBeneficios = listaBeneficios;
     }
+
     public DlgGestionBeneficios(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
-        AlmacenamientoBeneficios listaBeneficios,
+            AlmacenamientoBeneficios listaBeneficios,
             AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante,
             Estudiante estudiante) {
         super(parent, modal);
@@ -203,24 +204,24 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        //        String titulo[] = {"Id", "Nombre del Puesto", "Salario"};
-        //        Puestos puestos;
-        //        tblModel = new DefaultTableModel(null, titulo);
-        //        for (int i = 0; i < listaPuestos.getListaPuestos().size(); i++) {
-        //            puestos = listaPuestos.getListaPuestos().get(i);
-        //
-        //            if (String.valueOf(puestos.getIdPuesto()).contains(txtBuscar.getText().toLowerCase())
-        //                    || puestos.getNombrePuesto().toLowerCase().contains(txtBuscar.getText().toLowerCase())
-        //                    || String.valueOf(puestos.getSalario()).contains(txtBuscar.getText().toLowerCase())) {
-        //                Object row[] = {listaPuestos.getListaPuestos().get(i).getIdPuesto(),
-        //                    listaPuestos.getListaPuestos().get(i).getNombrePuesto(),
-        //                    listaPuestos.getListaPuestos().get(i).getSalario()};
-        //                tblModel.addRow(row);
-        //            }
-        //        }
-        //
-        //        tblPuestos.setModel(tblModel);
-        //        txtCant.setText(String.valueOf(tblPuestos.getRowCount()));
+        String titulo[] = {"ID", "Nombre", "Monto", "Descripción"};
+        Beneficios beneficios;
+        tblModel = new DefaultTableModel(null, titulo);
+        for (int i = 0; i < listaBeneficios.getListaBeneficios().size(); i++) {
+            beneficios = listaBeneficios.getListaBeneficios().get(i);
+
+            if (String.valueOf(beneficios.getIdBeneficio()).contains(txtBuscar.getText().toLowerCase())
+                    || beneficios.getNomBeneficio().toLowerCase().contains(txtBuscar.getText().toLowerCase())
+                    || String.valueOf(beneficios.getMontoBeneficio()).contains(txtBuscar.getText().toLowerCase())) {
+                Object row[] = {listaBeneficios.getListaBeneficios().get(i).getIdBeneficio(),
+                    listaBeneficios.getListaBeneficios().get(i).getNomBeneficio(),
+                    listaBeneficios.getListaBeneficios().get(i).getMontoBeneficio()};
+                tblModel.addRow(row);
+            }
+        }
+
+        tblBeneficios.setModel(tblModel);
+        txtCant.setText(String.valueOf(tblBeneficios.getRowCount()));
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
@@ -231,60 +232,65 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-                if (tblBeneficios.getSelectedRowCount() == 1) {
-                    int pos = tblBeneficios.getSelectedRow();
-                    int id = Integer.parseInt(tblBeneficios.getValueAt(tblBeneficios.getSelectedRow(), 0).toString());
-        
-                    Beneficios beneficios = listaBeneficios.buscarId(id);
-        
-                    DlgNuevoBeneficio winEditar = new DlgNuevoBeneficio(null, true, listaEstudiantes, listaBeneficios, listaBeneficioEstudiante, estudiante);
-        
-                    winEditar.setTitle("Editar Beneficio");
-                    winEditar.setLocationRelativeTo(null);
-                    winEditar.setVisible(true);
-        
-                    this.listaBeneficios = winEditar.listaBeneficio;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Beneficio");
-                }
+        if (tblBeneficios.getSelectedRowCount() == 1) {
+            int pos = tblBeneficios.getSelectedRow();
+            int id = Integer.parseInt(tblBeneficios.getValueAt(tblBeneficios.getSelectedRow(), 0).toString());
+
+            Beneficios beneficios = listaBeneficios.buscarId(id);
+
+            if (beneficios != null) {
+                DlgNuevoBeneficio winEditar = new DlgNuevoBeneficio(null, true, listaEstudiantes, listaBeneficios, listaBeneficioEstudiante, beneficios);
+
+                winEditar.setTitle("Editar Beneficio");
+                winEditar.setLocationRelativeTo(null);
+                winEditar.setVisible(true);
+
+                this.listaBeneficios = winEditar.listaBeneficio;
+            } else {
+                JOptionPane.showMessageDialog(this, "Beneficio no encontrado");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Beneficio");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-                if (tblBeneficios.getSelectedRowCount() == 1) {
-                    int id = Integer.parseInt(tblBeneficios.getValueAt(tblBeneficios.getSelectedRow(), 0).toString());
-        
-                    int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el auto");
-        
-                    Beneficios beneficios = listaBeneficios.buscarId(id);
-                    if (resp == 0) {  //Sí quiere eliminar el puesto
-                        if (listaBeneficios.eliminarBeneficio(beneficios)) {
-                            JOptionPane.showMessageDialog(this, "Beneficio eliminado");
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Beneficio");
+        if (tblBeneficios.getSelectedRowCount() == 1) {
+            int id = Integer.parseInt(tblBeneficios.getValueAt(tblBeneficios.getSelectedRow(), 0).toString());
+
+            int resp = JOptionPane.showConfirmDialog(this, "Quiere eliminar el auto");
+
+            Beneficios beneficios = listaBeneficios.buscarId(id);
+            if (resp == 0) {  //Sí quiere eliminar el puesto
+                if (listaBeneficios.eliminarBeneficio(beneficios)) {
+                    JOptionPane.showMessageDialog(this, "Beneficio eliminado");
                 }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar 1 Beneficio");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-cargarTabla();
+        cargarTabla();
     }//GEN-LAST:event_formWindowActivated
-private void cargarTabla() {
-    String[] titulos = {"ID", "Nombre", "Monto", "Descripción"};
-    DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+    private void cargarTabla() {
+        String[] titulos = {"ID", "Nombre", "Monto", "Descripción"};
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
 
-    for (Beneficios b : listaBeneficios.getListaBeneficios()) {
-        Object[] fila = {
-            b.getIdBeneficio(),
-            b.getNomBeneficio(),
-            b.getMontoBeneficio(),
-            b.getDescripcion()
-        };
-        modelo.addRow(fila);
+        for (Beneficios b : listaBeneficios.getListaBeneficios()) {
+            Object[] fila = {
+                b.getIdBeneficio(),
+                b.getNomBeneficio(),
+                b.getMontoBeneficio(),
+                b.getDescripcion()
+            };
+            modelo.addRow(fila);
+        }
+
+        tblBeneficios.setModel(modelo);
     }
 
-    tblBeneficios.setModel(modelo);
-}
     /**
      * @param args the command line arguments
      */
