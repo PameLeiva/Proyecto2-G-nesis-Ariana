@@ -99,6 +99,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
         });
 
         btnInsertar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnInsertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/insertar.png"))); // NOI18N
         btnInsertar.setText("Insertar");
         btnInsertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +108,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
         });
 
         btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editar.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +124,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
             }
         });
 
+        btnBeneficios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/beneficios.png"))); // NOI18N
         btnBeneficios.setText("Beneficios");
         btnBeneficios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
