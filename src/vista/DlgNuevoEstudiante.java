@@ -88,16 +88,21 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
 
-        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -234,7 +239,6 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAnio3))
@@ -325,7 +329,7 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
                 }
 
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Id y salario deben ser numéricos");
+                JOptionPane.showMessageDialog(this, "Cedula y carnet deben ser numéricos");
             }
 
             switch (this.getTitle()) {
@@ -346,6 +350,7 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
 
                         cmbCarrera.setSelectedIndex(-1);
                         txtCed.requestFocus();
+                        this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(this, "El id de puesto ya existe");
                         txtCed.setSelectionStart(0);
@@ -388,6 +393,11 @@ public class DlgNuevoEstudiante extends javax.swing.JDialog {
 
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private Carreras buscaCarreraNom(String nombre) {
     for (Carreras c : listaCarreras.getListaCarreras()) {

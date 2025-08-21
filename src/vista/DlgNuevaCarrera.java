@@ -9,7 +9,6 @@ public class DlgNuevaCarrera extends javax.swing.JDialog {
     private AlmacenamientoCarreras listaCarreras;
     protected int idCarrera;
     protected DlgGestionCarreras DialogGestio;
-    int pos;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgNuevaCarrera.class.getName());
 

@@ -6,10 +6,12 @@ package vista;
 
 import datos.AlmacenamientoBeneficios;
 import datos.AlmacenamientoBeneficiosEstudiantes;
+import datos.AlmacenamientoCarreras;
 import datos.AlmacenamientoEstudiante;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lógica.Beneficios;
+import lógica.Carreras;
 import lógica.Estudiante;
 
 /**
@@ -21,7 +23,9 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgGestionBeneficios.class.getName());
     protected AlmacenamientoBeneficios listaBeneficios;
     private AlmacenamientoEstudiante listaEstudiantes;
+    private AlmacenamientoCarreras listaCarreras;
     private AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
+    
     private Estudiante estudiante;
     private DefaultTableModel tblModel;
 
@@ -288,6 +292,35 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
         }
 
         tblBeneficios.setModel(modelo);
+    }
+    
+    
+    private void muestraTabla() {
+        String[] titulo = {"ID", "Nombre de la Carrera", "Grado Académico"};
+
+        // Creamos el modelo con celdas editables excepto la columna ID
+        tblModel = new DefaultTableModel(null, titulo) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0; // Solo la columna 0 (ID) no editable
+            }
+        };
+
+        // Llenamos el modelo con los datos de almacenamientoCarreras
+        for (Carreras carrera : listaCarreras.getListaCarreras()) {
+            if (carrera != null) {
+                Object[] row = {
+                    carrera.getIdCarrera(),
+                    carrera.getNomCarrera(),
+                    carrera.getGrado()
+                };
+                tblModel.addRow(row);
+            }
+        }
+
+        // Asignamos el modelo a la tabla y actualizamos el contador de registros
+        tblBeneficios.setModel(tblModel);
+        txtCant.setText(String.valueOf(tblBeneficios.getRowCount()));
     }
 
     /**

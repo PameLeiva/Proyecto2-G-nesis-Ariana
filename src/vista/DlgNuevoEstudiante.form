@@ -88,10 +88,10 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Guardar"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
@@ -99,11 +99,14 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -206,7 +209,6 @@
                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblAnio3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -243,10 +245,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblPlaca">
           <Properties>
+            <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="C&#xe9;dula:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCed">
@@ -258,10 +260,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblMarca">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNom">
@@ -273,10 +275,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblAnio">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Carnet:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Carnet:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCarnet">
@@ -309,26 +311,26 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblAnio1">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblAnio2">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Email:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Email:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblAnio3">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -348,10 +350,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblAnio4">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Carrera:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Carrera:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbCarrera">

@@ -119,6 +119,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerrar.png"))); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnPagos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dinero.png"))); // NOI18N
         btnPagos.setText("Pagos");
@@ -387,18 +392,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
         dlgPagos.setLocationRelativeTo(this); // centrar
         dlgPagos.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_itemPagosMensualesActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea salir?",
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0); // Cierra la aplicación
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
     // Métodos para abrir las ventanas
 
-    private void abrirGestionEstudiantes() {
-        try {
-            DlgGestionEstudiantes dialog = new DlgGestionEstudiantes(this, true,
-                    almacenamientoEstudiantes, almacenamientoCarreras, almacenamientoBeneficiosEstudiantes, almacenamientoBeneficios);
-            dialog.setLocationRelativeTo(this);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al abrir gestión de estudiantes: " + e.getMessage());
-        }
-    }
+    
 
     private void abrirGestionCarreras() {
         try {
@@ -417,29 +429,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
             dialog.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al abrir gestión de beneficios: " + e.getMessage());
-        }
-    }
-
-    private void abrirAsignarBeneficios() {
-        try {
-            DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(this, true,
-                    almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes);
-            dialog.setLocationRelativeTo(this);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al abrir asignación de beneficios: " + e.getMessage());
-        }
-    }
-
-    private void abrirPagosMensuales() {
-        try {
-            DlgPagosMensuales dialog = new DlgPagosMensuales(this, true,
-                    almacenamientoEstudiantes, almacenamientoBeneficios,
-                    almacenamientoBeneficiosEstudiantes, almacenamientoPagosMensuales);
-            dialog.setLocationRelativeTo(this);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al abrir pagos mensuales: " + e.getMessage());
         }
     }
 

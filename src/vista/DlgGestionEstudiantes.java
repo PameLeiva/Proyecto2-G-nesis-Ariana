@@ -260,6 +260,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
                 winEditar.setVisible(true);
 
                 this.listaEstudiantes = winEditar.listaEstudiantes;
+                muestraTabla();
             } else {
                 JOptionPane.showMessageDialog(this, "Estudiante no encontrado");
             }

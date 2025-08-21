@@ -10,6 +10,8 @@ import lógica.Beneficios;
 public class AlmacenamientoBeneficios {
     
     private ArrayList<Beneficios> listaBeneficios;
+    private int siguienteId = 1; // empieza en 1
+
     
     public AlmacenamientoBeneficios() {
         this.listaBeneficios = new ArrayList<>();
@@ -26,6 +28,7 @@ public class AlmacenamientoBeneficios {
     // CRUD
     public void insertarBeneficio(Beneficios beneficio) {
         if (this.listaBeneficios != null && beneficio != null) {
+            beneficio.setIdBeneficio(siguienteId++);
             this.listaBeneficios.add(beneficio);
         }
     }
@@ -62,4 +65,6 @@ public class AlmacenamientoBeneficios {
         }
         return -1;
     }
+    
+    
 }

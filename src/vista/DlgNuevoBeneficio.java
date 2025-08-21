@@ -69,8 +69,6 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        lblId = new javax.swing.JLabel();
-        txtIdBeneficio = new javax.swing.JTextField();
         lblNom = new javax.swing.JLabel();
         txtNomBeneficio = new javax.swing.JTextField();
         lblDescripcion = new javax.swing.JLabel();
@@ -121,11 +119,6 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblId.setText("Id:");
-
-        txtIdBeneficio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
         lblNom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNom.setText("Nombre:");
 
@@ -149,14 +142,11 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblNom)
-                    .addComponent(lblId)
                     .addComponent(lblDescripcion)
                     .addComponent(lblMonto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtIdBeneficio, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                        .addComponent(txtMontoBeneficio))
+                    .addComponent(txtMontoBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescripBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNomBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -164,11 +154,7 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblId)
-                    .addComponent(txtIdBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNom)
                     .addComponent(txtNomBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -212,58 +198,56 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Beneficios beneficios = new Beneficios();
-        //Validación de campos vacíos
-        if (txtIdBeneficio.getText().isBlank()
-                || txtNomBeneficio.getText().isBlank()
-                || txtDescripBeneficio.getText().isBlank()
-                || txtMontoBeneficio.getText().isBlank()) {
 
-            JOptionPane.showMessageDialog(this, "Hay campos vacíos");
-        } else {
-            //Agregar try/catch
-            try {
-                beneficios.setIdBeneficio(Integer.parseInt(txtIdBeneficio.getText()));
-                beneficios.setNomBeneficio(txtNomBeneficio.getText());
-                beneficios.setDescripcion(txtDescripBeneficio.getText());
-                beneficios.setMontoBeneficio(Double.parseDouble(txtMontoBeneficio.getText()));
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Id y monto deben ser numéricos");
-            }
+    // Validación de campos vacíos
+    if (txtNomBeneficio.getText().isBlank()
+            || txtDescripBeneficio.getText().isBlank()
+            || txtMontoBeneficio.getText().isBlank()) {
 
-            switch (this.getTitle()) {
-                case "Agregar Beneficio" -> {
-                    if (listaBeneficio.buscarId(beneficios.getIdBeneficio()) == null) {
-                        listaBeneficio.insertarBeneficio(beneficios);
-                        JOptionPane.showMessageDialog(this, "Beneficio agregado con éxito");
-                        txtIdBeneficio.setText("");
-                        txtNomBeneficio.setText("");
-                        txtDescripBeneficio.setText("");
-                        txtMontoBeneficio.setText("");
-                        txtIdBeneficio.requestFocus();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "El id de beneficio ya existe");
-                        txtIdBeneficio.setSelectionStart(0);
-                        txtIdBeneficio.setSelectionEnd(txtIdBeneficio.getText().length());
-                        txtIdBeneficio.requestFocus();
-                    }
-                }
+        JOptionPane.showMessageDialog(this, "Hay campos vacíos");
+        return;
+    }
 
-                case "Editar Beneficio" -> {
-                    listaBeneficio.editarBeneficio(pos, beneficios);
-                    JOptionPane.showMessageDialog(this, "Beneficio editado con éxito");
-                    this.dispose();
-                }
-            }
+    try {
+        beneficios.setNomBeneficio(txtNomBeneficio.getText());
+        beneficios.setDescripcion(txtDescripBeneficio.getText());
+        beneficios.setMontoBeneficio(Double.parseDouble(txtMontoBeneficio.getText()));
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El monto debe ser numérico");
+        return;
+    }
+
+    switch (this.getTitle()) {
+        case "Agregar Beneficio" -> {
+            listaBeneficio.insertarBeneficio(beneficios);
+            JOptionPane.showMessageDialog(this, "Beneficio agregado con éxito");
+            txtNomBeneficio.setText("");
+            txtDescripBeneficio.setText("");
+            txtMontoBeneficio.setText("");
+            txtNomBeneficio.requestFocus();
         }
+
+        case "Editar Beneficio" -> {
+            listaBeneficio.editarBeneficio(pos, beneficios);
+            JOptionPane.showMessageDialog(this, "Beneficio editado con éxito");
+            this.dispose();
+        }
+    }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-       if (this.getTitle().equals("Editar Beneficio") && beneficio != null) {
-        txtIdBeneficio.setText(String.valueOf(beneficio.getIdBeneficio()));
-        txtIdBeneficio.setEnabled(false);
+        if (this.getTitle().equals("Editar Beneficio") && beneficio != null) {
+        // Caso: Editar
+       
         txtNomBeneficio.setText(beneficio.getNomBeneficio());
         txtMontoBeneficio.setText(String.valueOf(beneficio.getMontoBeneficio()));
         txtDescripBeneficio.setText(beneficio.getDescripcion());
+    } else if (this.getTitle().equals("Registrar Beneficio")) {
+        // Caso: Nuevo beneficio
+       
+        txtNomBeneficio.setText("");
+        txtMontoBeneficio.setText("");
+        txtDescripBeneficio.setText("");
     }
     }//GEN-LAST:event_formWindowActivated
 
@@ -310,11 +294,9 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblDescripcion;
-    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblMonto;
     private javax.swing.JLabel lblNom;
     private javax.swing.JTextField txtDescripBeneficio;
-    private javax.swing.JTextField txtIdBeneficio;
     private javax.swing.JTextField txtMontoBeneficio;
     private javax.swing.JTextField txtNomBeneficio;
     // End of variables declaration//GEN-END:variables
