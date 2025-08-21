@@ -42,14 +42,13 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
 
     public DlgGestionBeneficios(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
             AlmacenamientoBeneficios listaBeneficios,
-            AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante,
-            Estudiante estudiante) {
+            AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante) {
         super(parent, modal);
         initComponents();
         this.listaEstudiantes = listaEstudiante;
         this.listaBeneficios = listaBeneficios;
         this.listaBeneficioEstudiante = listaBeneficioEstudiante;
-        this.estudiante = estudiante;
+        
     }
 
     /**
@@ -225,7 +224,7 @@ public class DlgGestionBeneficios extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        DlgNuevoBeneficio win = new DlgNuevoBeneficio(null, true, listaEstudiantes, listaBeneficios, listaBeneficioEstudiante, estudiante);
+        DlgNuevoBeneficio win = new DlgNuevoBeneficio(null, true, listaEstudiantes, listaBeneficios, listaBeneficioEstudiante);
         win.setTitle("Agregar Beneficio");
         win.setVisible(true);
         this.listaBeneficios = win.listaBeneficio;

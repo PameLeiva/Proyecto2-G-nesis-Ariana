@@ -1,6 +1,7 @@
 package vista;
 
 import datos.AlmacenamientoCarreras;
+import java.awt.Frame;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import lógica.Carreras;
@@ -174,7 +175,7 @@ public class DlgGestionCarreras extends javax.swing.JDialog {
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
 
         try {
-            DlgNuevaCarrera dialog = new DlgNuevaCarrera(null, true, almacenamientoCarreras);
+            DlgNuevaCarrera dialog = new DlgNuevaCarrera(this, rootPaneCheckingEnabled, almacenamientoCarreras);
             dialog.setTitle("Agregar Carrera");
             dialog.setLocationRelativeTo(this);
             dialog.setVisible(true);
@@ -211,25 +212,46 @@ public class DlgGestionCarreras extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (tblCarreras.getSelectedRowCount() == 1) {
-            int pos = tblCarreras.getSelectedRow();
-            int id = Integer.parseInt(tblCarreras.getValueAt(pos, 0).toString());
+        int filas = tblCarreras.getRowCount();
 
-            Carreras carrera = almacenamientoCarreras.buscarId(id);
-            if (carrera != null) {
-                try {
-                    DlgNuevaCarrera dialogEditar = new DlgNuevaCarrera(null, true,
-                            almacenamientoCarreras, carrera, pos);
-                    dialogEditar.setTitle("Editar Carrera");
-                    dialogEditar.setLocationRelativeTo(this);
-                    dialogEditar.setVisible(true);
-                    muestraTabla();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error al abrir ventana de edición: " + e.getMessage());
+        if (filas > 0) {
+
+            // Forzar que termine la edición si hay una celda en edición
+            if (tblCarreras.isEditing()) {
+                tblCarreras.getCellEditor().stopCellEditing();
+            }
+
+            int resp = JOptionPane.showConfirmDialog(this,
+                    "¿Desea guardar los cambios realizados en la tabla?",
+                    "Confirmar edición",
+                    JOptionPane.YES_NO_OPTION);
+
+
+            if (resp == JOptionPane.YES_OPTION) {
+                for (int i = 0; i < filas; i++) {
+                    int id = Integer.parseInt(tblCarreras.getValueAt(i, 0).toString());
+                    String nombre = tblCarreras.getValueAt(i, 1).toString();
+                    String grado = tblCarreras.getValueAt(i, 2).toString();
+
+
+                    Carreras carrera = almacenamientoCarreras.buscarId(id);
+
+                    if (carrera != null) {
+                        
+                        carrera.setNomCarrera(nombre);
+                        carrera.setGrado(grado);
+
+                          } else {
+                        JOptionPane.showMessageDialog(this,"⚠ No se encontró carrera con ID " + id);
+                    }
                 }
+
+                JOptionPane.showMessageDialog(this, "Cambios guardados exitosamente");
+
+                muestraTabla(); // refresca la tabla para reflejar los cambios
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una carrera");
+            JOptionPane.showMessageDialog(this, "No hay filas para editar");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -261,18 +283,29 @@ public class DlgGestionCarreras extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void muestraTabla() {
-      String[] titulo = {"ID", "Nombre de la Carrera", "Grado Académico"};
-        tblModel = new DefaultTableModel(null, titulo);
-        
+        String[] titulo = {"ID", "Nombre de la Carrera", "Grado Académico"};
+
+        // Creamos el modelo con celdas editables excepto la columna ID
+        tblModel = new DefaultTableModel(null, titulo) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0; // Solo la columna 0 (ID) no editable
+            }
+        };
+
+        // Llenamos el modelo con los datos de almacenamientoCarreras
         for (Carreras carrera : almacenamientoCarreras.getListaCarreras()) {
-            Object[] row = {
-                carrera.getIdCarrera(),
-                carrera.getNomCarrera(),
-                carrera.getGrado()
-            };
-            tblModel.addRow(row);
+            if (carrera != null) {
+                Object[] row = {
+                    carrera.getIdCarrera(),
+                    carrera.getNomCarrera(),
+                    carrera.getGrado()
+                };
+                tblModel.addRow(row);
+            }
         }
 
+        // Asignamos el modelo a la tabla y actualizamos el contador de registros
         tblCarreras.setModel(tblModel);
         txtCant.setText(String.valueOf(tblCarreras.getRowCount()));
     }

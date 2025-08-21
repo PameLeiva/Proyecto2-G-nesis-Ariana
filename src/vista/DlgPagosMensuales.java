@@ -11,6 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import lógica.Beneficios;
 import lógica.PagosMensuales;
 
 /**
@@ -38,6 +39,25 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
         initComponents();
         llenarComboMeses(cmbMes);
         llenarComboMeses(cmbMesPlanilla);
+
+        // Crear el modelo con las columnas necesarias
+        tblModel = new DefaultTableModel(
+                new Object[]{
+                    "ID Pago",
+                    "Estudiante",
+                    "Mes",
+                    "Fecha Pago",
+                    "Total Beneficios",
+                    "Deducción Seguro",
+                    "Deducción Renta",
+                    "Pago Neto"
+                },
+                0
+        );
+
+        // Asignar el modelo a la JTable creada en el diseñador
+        tblRegistrosPagos.setModel(tblModel);
+
     }
 
     public DlgPagosMensuales(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
@@ -52,6 +72,22 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
         llenarComboMeses(cmbMes);
         llenarComboMeses(cmbMesPlanilla);
         txtFechaActual.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        tblModel = new DefaultTableModel(
+                new Object[]{
+                    "ID Pago",
+                    "Estudiante",
+                    "Mes",
+                    "Fecha Pago",
+                    "Total Beneficios",
+                    "Deducción Seguro",
+                    "Deducción Renta",
+                    "Pago Neto"
+                },
+                0
+        );
+
+        // Asignar el modelo a la JTable creada en el diseñador
+        tblRegistrosPagos.setModel(tblModel);
 
     }
 
@@ -73,12 +109,16 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
         txtAnio = new javax.swing.JTextField();
         cmbMes = new javax.swing.JComboBox<>();
         btnGenerar = new javax.swing.JButton();
+        cmbBeneficio = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cmbMesPlanilla = new javax.swing.JComboBox<>();
         txtAnioPlanilla = new javax.swing.JTextField();
         btnMostrarPlanilla = new javax.swing.JButton();
+        cmbBeneficio1 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
@@ -89,6 +129,11 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
         tblRegistrosPagos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Generar Pago mensual"));
 
@@ -112,6 +157,14 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
             }
         });
 
+        cmbBeneficio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBeneficioActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Beneficio");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,12 +177,14 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtFechaActual)
                             .addComponent(txtAnio)
-                            .addComponent(cmbMes, 0, 162, Short.MAX_VALUE)))
+                            .addComponent(cmbMes, 0, 162, Short.MAX_VALUE)
+                            .addComponent(cmbBeneficio, 0, 162, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -148,9 +203,13 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
                     .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
                 .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -174,26 +233,39 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
             }
         });
 
+        cmbBeneficio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBeneficio1ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Beneficio");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAnioPlanilla))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbMesPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addComponent(cmbBeneficio1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtAnioPlanilla))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbMesPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMostrarPlanilla)
-                .addGap(102, 102, 102))
+                .addGap(60, 60, 60))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,6 +278,10 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtAnioPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbBeneficio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMostrarPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -250,7 +326,7 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,9 +337,7 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -272,16 +346,18 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(jCheckBox1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jCheckBox2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jCheckBox2))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jCheckBox3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,47 +431,121 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
     }//GEN-LAST:event_txtFechaActualActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        if (listaPagosMesuales == null || listaEstudiante == null) {
+
+        if (listaPagosMesuales == null || listaEstudiante == null || listaBeneficioEstudiante == null) {
             JOptionPane.showMessageDialog(this,
-                    "Error interno: almacenamiento de pagos o lista de estudiantes no inicializada.",
+                    "Error interno: almacenamiento no inicializado.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-            return; // sale del método sin intentar generar
+            return;
         }
 
         try {
-
             String mes = cmbMes.getSelectedItem().toString();
             int anio = Integer.parseInt(txtAnio.getText());
+            String beneficioSelec = cmbBeneficio.getSelectedItem().toString();
 
-            if (!listaPagosMesuales.puedeGenerarPlanilla(mes, anio)) {
-                JOptionPane.showMessageDialog(this, "Ya existe planilla para este mes/año o la fecha es inválida",
-                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+            // Obtener id del beneficio
+            int idBeneficio = listaBeneficio.getListaBeneficios().stream()
+                    .filter(b -> b.getNomBeneficio().equals(beneficioSelec))
+                    .findFirst()
+                    .map(b -> b.getIdBeneficio())
+                    .orElse(-1);
+
+            if (idBeneficio == -1) {
+                JOptionPane.showMessageDialog(this, "Beneficio no válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Genera un pago por cada estudiante con beneficios
-            ArrayList<PagosMensuales> planilla = listaPagosMesuales.generarPlanillaCompleta(mes, anio, listaEstudiante);
+            // 🚀 Reporte del mes
+            ArrayList<PagosMensuales> reporteMensual = new ArrayList<>();
 
-            // Mostrar en la tabla
-            tblModel.setRowCount(0); // limpia la tabla
-            for (PagosMensuales pago : planilla) {
-                tblModel.addRow(new Object[]{
-                    pago.getIdPago(),
-                    pago.getEstudiante(),
-                    pago.getMes(),
-                    pago.getFechaPago().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                    pago.getTotalBeneficios(),
-                    pago.getDeducSeguro(),
-                    pago.getDeducRenta(),
-                    pago.getPagoNeto()
-                });
+            // Recorremos con while todos los beneficiarios
+            int i = 0;
+            while (i < listaBeneficioEstudiante.getListaBeneficiosEstudiantes().size()) {
+                var relacion = listaBeneficioEstudiante.getListaBeneficiosEstudiantes().get(i);
+
+                if (relacion.getIdBeneficio() == idBeneficio) {
+                    int cedulaEst = relacion.getCed();
+
+                    // Evitar pagos duplicados
+                    if (!listaPagosMesuales.existePagoEstudianteMes(cedulaEst, mes, anio)) {
+                        double monto = listaBeneficio.getListaBeneficios().stream()
+                                .filter(b -> b.getIdBeneficio() == idBeneficio)
+                                .findFirst()
+                                .map(b -> b.getMontoBeneficio())
+                                .orElse(0.0);
+
+                        double deducSeguro = monto * 0.10;
+                        double deducRenta = monto * 0.05;
+                        double pagoNeto = monto - deducSeguro - deducRenta;
+
+                        PagosMensuales pago = new PagosMensuales(
+                                listaPagosMesuales.getProximoId(),
+                                LocalDate.now(),
+                                mes,
+                                LocalDate.now(),
+                                cedulaEst,
+                                monto,
+                                deducSeguro,
+                                deducRenta,
+                                pagoNeto
+                        );
+
+                        listaPagosMesuales.insertarPago(pago);
+                        reporteMensual.add(pago);
+                    }
+                }
+                i++;
             }
+
+            // 🚀 Mostrar el reporte acumulativo en la tabla
+            tblModel.setRowCount(0);
+
+            // Calcular totales acumulativos
+            double totalBeneficios = reporteMensual.stream().mapToDouble(PagosMensuales::getTotalBeneficios).sum();
+            double totalSeguro = reporteMensual.stream().mapToDouble(PagosMensuales::getDeducSeguro).sum();
+            double totalRenta = reporteMensual.stream().mapToDouble(PagosMensuales::getDeducRenta).sum();
+            double totalNeto = reporteMensual.stream().mapToDouble(PagosMensuales::getPagoNeto).sum();
+            int totalEstudiantes = reporteMensual.size();
+
+            tblModel.addRow(new Object[]{
+                "Reporte", // Id Pago (no aplica en resumen)
+                totalEstudiantes, // Cantidad de estudiantes beneficiados
+                mes,
+                LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                totalBeneficios,
+                totalSeguro,
+                totalRenta,
+                totalNeto
+            });
+
+            // Mensaje con resumen del reporte
+            JOptionPane.showMessageDialog(this,
+                    "📋 Reporte generado para el mes de " + mes + " " + anio
+                    + "\nEstudiantes beneficiados: " + reporteMensual.size(),
+                    "Reporte Mensual", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Año inválido", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Error e) {
             JOptionPane.showMessageDialog(this, "Año inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnGenerarActionPerformed
+
+    private void cmbBeneficioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBeneficioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBeneficioActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        llenarCmbBeneficios();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void cmbBeneficio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBeneficio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBeneficio1ActionPerformed
 
     // Método para llenar un JComboBox con los meses
     private void llenarComboMeses(JComboBox<String> combo) {
@@ -403,18 +553,6 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 
         combo.setModel(new DefaultComboBoxModel<>(meses));
-    }
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {
-        if (pagosActuales != null && !pagosActuales.isEmpty()
-                && listaPagosMesuales != null && mesSelec != null && anioSelec > 0) {
-            cargarDatos(mesSelec, anioSelec, pagosActuales, listaPagosMesuales);
-        }
-
-        // Mostrar fecha actual siempre
-        if (txtFechaActual != null) {
-            txtFechaActual.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        }
     }
 
     public void cargarDatos(String mes, int anio, ArrayList<PagosMensuales> pagos, AlmacenamientoPagosMensuales almacenamiento) {
@@ -439,6 +577,14 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
         }
 
         tblRegistrosPagos.setModel(modelo);
+
+    }
+
+    private void llenarCmbBeneficios() {
+        cmbBeneficio.removeAllItems();
+        for (Beneficios b : listaBeneficio.getListaBeneficios()) {
+            cmbBeneficio.addItem(b.getNomBeneficio());
+        }
 
     }
 
@@ -483,6 +629,8 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
     private javax.swing.JButton btnGenerar;
     private javax.swing.JButton btnMostrarPlanilla;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cmbBeneficio;
+    private javax.swing.JComboBox<String> cmbBeneficio1;
     private javax.swing.JComboBox<String> cmbMes;
     private javax.swing.JComboBox<String> cmbMesPlanilla;
     private javax.swing.JCheckBox jCheckBox1;
@@ -494,6 +642,8 @@ public class DlgPagosMensuales extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -47,14 +47,12 @@ public class DlgNuevoBeneficio extends javax.swing.JDialog {
     }
     public DlgNuevoBeneficio(java.awt.Frame parent, boolean modal, AlmacenamientoEstudiante listaEstudiante,
             AlmacenamientoBeneficios listaBeneficio,
-            AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante,
-           Estudiante estudiante) {
+            AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante) {
         super(parent, modal);
         initComponents();
         this.listaEstudiantes = listaEstudiante;
         this.listaBeneficio = listaBeneficio;
         this.listaBeneficioEstudiante = listaBeneficioEstudiante;
-   this.estudiante = estudiante;
 
     }
 

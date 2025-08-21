@@ -321,4 +321,7 @@ public class AlmacenamientoPagosMensuales {
         ArrayList<PagosMensuales> pagos = obtenerPagosPorMesAnio(mes, anio);
         return pagos.size(); // Un pago por estudiante en cada planilla
     }
+    
+    
+    
 }

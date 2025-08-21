@@ -10,6 +10,7 @@ import datos.AlmacenamientoCarreras;
 import datos.AlmacenamientoEstudiante;
 import datos.AlmacenamientoPagosMensuales;
 import javax.swing.JOptionPane;
+import vista.DlgAsignarBeneficios;
 
 /**
  *
@@ -60,19 +61,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnPagos = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        itemSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        itemGestionEstudiantes = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        itemGestionCarreras = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        itemGestionBeneficios = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        itemAsignarBeneficios = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        itemPagosMensuales = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        itemAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,63 +159,88 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem1.setText("Salir");
-        jMenu1.add(jMenuItem1);
+        itemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemSalir.setText("Salir");
+        itemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemSalir);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Estudiantes");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem2.setText("Gestión de Estudiantes");
-        jMenu2.add(jMenuItem2);
+        itemGestionEstudiantes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemGestionEstudiantes.setText("Gestión de Estudiantes");
+        itemGestionEstudiantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGestionEstudiantesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itemGestionEstudiantes);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Carreras");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem3.setText("Gestión Carreras");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        itemGestionCarreras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemGestionCarreras.setText("Gestión Carreras");
+        itemGestionCarreras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                itemGestionCarrerasActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jMenu3.add(itemGestionCarreras);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Beneficios");
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem4.setText("Gestión de Beneficios");
-        jMenu4.add(jMenuItem4);
+        itemGestionBeneficios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemGestionBeneficios.setText("Gestión de Beneficios");
+        itemGestionBeneficios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGestionBeneficiosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itemGestionBeneficios);
         jMenu4.add(jSeparator1);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem5.setText("Asignar Beneficios");
-        jMenu4.add(jMenuItem5);
+        itemAsignarBeneficios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemAsignarBeneficios.setText("Asignar Beneficios");
+        itemAsignarBeneficios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAsignarBeneficiosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itemAsignarBeneficios);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Pagos");
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem6.setText("Pagos Mensuales");
-        jMenu5.add(jMenuItem6);
+        itemPagosMensuales.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemPagosMensuales.setText("Pagos Mensuales");
+        itemPagosMensuales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemPagosMensualesActionPerformed(evt);
+            }
+        });
+        jMenu5.add(itemPagosMensuales);
 
         jMenuBar1.add(jMenu5);
 
         jMenu6.setText("Ayuda");
 
-        jMenuItem7.setText("Acerca de");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        itemAcercaDe.setText("Acerca de");
+        itemAcercaDe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                itemAcercaDeActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem7);
+        jMenu6.add(itemAcercaDe);
 
         jMenuBar1.add(jMenu6);
 
@@ -240,13 +266,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void itemAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAcercaDeActionPerformed
         // TODO add your handling code here:
         mostrarAcercaDe();
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_itemAcercaDeActionPerformed
 
     private void btnEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstudiantesActionPerformed
-        abrirGestionEstudiantes();
+        DlgGestionEstudiantes dialog = new DlgGestionEstudiantes(this, rootPaneCheckingEnabled, almacenamientoEstudiantes, almacenamientoCarreras, almacenamientoBeneficiosEstudiantes, almacenamientoBeneficios);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnEstudiantesActionPerformed
 
     private void btnCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrerasActionPerformed
@@ -258,30 +286,101 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBeneficiosActionPerformed
 
     private void btnAsignarBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarBeneficiosActionPerformed
-    DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(this, true, almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes);
-     dialog.setLocationRelativeTo(this);
-    dialog.setVisible(true);
+
+        DlgAsignarBeneficios dlg = new DlgAsignarBeneficios(
+                this, rootPaneCheckingEnabled,
+                almacenamientoEstudiantes,
+                almacenamientoBeneficios,
+                almacenamientoBeneficiosEstudiantes
+        );
+
+        dlg.setLocationRelativeTo(this);
+        dlg.setVisible(true);
+
+
     }//GEN-LAST:event_btnAsignarBeneficiosActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        abrirGestionCarreras();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void itemGestionCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGestionCarrerasActionPerformed
+        DlgGestionCarreras dialog = new DlgGestionCarreras(this, rootPaneCheckingEnabled, almacenamientoCarreras);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_itemGestionCarrerasActionPerformed
 
     private void btnPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagosActionPerformed
-      if (almacenamientoEstudiantes == null || almacenamientoBeneficios == null || 
-        almacenamientoBeneficiosEstudiantes == null || almacenamientoPagosMensuales == null) {
-        
-        JOptionPane.showMessageDialog(this, "Error: las listas no están inicializadas.",
-                                      "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        if (almacenamientoEstudiantes == null || almacenamientoBeneficios == null
+                || almacenamientoBeneficiosEstudiantes == null || almacenamientoPagosMensuales == null) {
 
-    // Crear el diálogo de Pagos Mensuales
-    DlgPagosMensuales dlgPagos = new DlgPagosMensuales(this, true, almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes, almacenamientoPagosMensuales);
+            JOptionPane.showMessageDialog(this, "Error: las listas no están inicializadas.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    dlgPagos.setLocationRelativeTo(this); // centrar
-    dlgPagos.setVisible(true);
+        // Crear el diálogo de Pagos Mensuales
+        DlgPagosMensuales dlg = new DlgPagosMensuales(
+                this,
+                true,
+                almacenamientoEstudiantes,
+                almacenamientoBeneficios,
+                almacenamientoBeneficiosEstudiantes,
+                almacenamientoPagosMensuales
+        );
+
+        dlg.setLocationRelativeTo(this);
+        dlg.setVisible(true);
     }//GEN-LAST:event_btnPagosActionPerformed
+
+    private void itemGestionEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGestionEstudiantesActionPerformed
+        // TODO add your handling code here:
+        DlgGestionEstudiantes dialog = new DlgGestionEstudiantes(this, rootPaneCheckingEnabled, almacenamientoEstudiantes, almacenamientoCarreras, almacenamientoBeneficiosEstudiantes, almacenamientoBeneficios);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_itemGestionEstudiantesActionPerformed
+
+    private void itemGestionBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGestionBeneficiosActionPerformed
+        // TODO add your handling code here:
+        DlgGestionBeneficios dialog = new DlgGestionBeneficios(this, rootPaneCheckingEnabled, almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_itemGestionBeneficiosActionPerformed
+
+    private void itemAsignarBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAsignarBeneficiosActionPerformed
+        // TODO add your handling code here:
+        DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(this, true, almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_itemAsignarBeneficiosActionPerformed
+
+    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
+        // TODO add your handling code here:
+
+        int opcion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea salir?",
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0); // Cierra la aplicación
+        }
+    }//GEN-LAST:event_itemSalirActionPerformed
+
+    private void itemPagosMensualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPagosMensualesActionPerformed
+        if (almacenamientoEstudiantes == null || almacenamientoBeneficios == null
+                || almacenamientoBeneficiosEstudiantes == null || almacenamientoPagosMensuales == null) {
+
+            JOptionPane.showMessageDialog(this, "Error: las listas no están inicializadas.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear el diálogo de Pagos Mensuales
+        DlgPagosMensuales dlgPagos = new DlgPagosMensuales(this, true, almacenamientoEstudiantes, almacenamientoBeneficios, almacenamientoBeneficiosEstudiantes, almacenamientoPagosMensuales);
+
+        dlgPagos.setLocationRelativeTo(this); // centrar
+        dlgPagos.setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_itemPagosMensualesActionPerformed
     // Métodos para abrir las ventanas
 
     private void abrirGestionEstudiantes() {
@@ -394,6 +493,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEstudiantes;
     private javax.swing.JButton btnPagos;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JMenuItem itemAcercaDe;
+    private javax.swing.JMenuItem itemAsignarBeneficios;
+    private javax.swing.JMenuItem itemGestionBeneficios;
+    private javax.swing.JMenuItem itemGestionCarreras;
+    private javax.swing.JMenuItem itemGestionEstudiantes;
+    private javax.swing.JMenuItem itemPagosMensuales;
+    private javax.swing.JMenuItem itemSalir;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -401,13 +507,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables

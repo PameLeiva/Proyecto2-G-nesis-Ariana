@@ -8,6 +8,7 @@ import datos.AlmacenamientoBeneficios;
 import datos.AlmacenamientoBeneficiosEstudiantes;
 import datos.AlmacenamientoCarreras;
 import datos.AlmacenamientoEstudiante;
+import datos.AlmacenamientoPagosMensuales;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lógica.Carreras;
@@ -26,6 +27,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
     protected AlmacenamientoCarreras listaCarreras;
     protected AlmacenamientoBeneficiosEstudiantes listaBeneficioEstudiante;
     protected AlmacenamientoBeneficios listaBeneficios;
+    protected AlmacenamientoPagosMensuales listaPagosMensuales;
     private DefaultTableModel tblModel;
 
     /**
@@ -223,7 +225,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
                 Object row[] = {listaEstudiantes.getListaEstudiantes().get(i).getCed(),
                     listaEstudiantes.getListaEstudiantes().get(i).getNom(),
                     listaEstudiantes.getListaEstudiantes().get(i).getCarnet(),
-                listaEstudiantes.getListaEstudiantes().get(i).getCarrera()};
+                    listaEstudiantes.getListaEstudiantes().get(i).getCarrera()};
                 tblModel.addRow(row);
             }
         }
@@ -287,7 +289,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
 
             Estudiante estudiante = listaEstudiantes.buscarCedula(cedula);
             if (estudiante != null) {
-                DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(null, true, estudiante, listaBeneficios, listaBeneficioEstudiante);
+                DlgAsignarBeneficios dialog = new DlgAsignarBeneficios(null, true, estudiante, listaBeneficios, listaBeneficioEstudiante, listaPagosMensuales);
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
             }
@@ -311,7 +313,7 @@ public class DlgGestionEstudiantes extends javax.swing.JDialog {
             if (c != null) {
                 nombreCarrera = c.getNomCarrera();
             } else {
-                nombreCarrera = "Carrera no encontrada"; 
+                nombreCarrera = "Carrera no encontrada";
             }
 
             Object row[] = {listaEstudiantes.getListaEstudiantes().get(i).getCed(),
